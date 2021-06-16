@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
+var mongoURI = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority'
+
 export default class JobTableRow extends Component {
     constructor(props){
     super(props);
@@ -10,7 +12,8 @@ export default class JobTableRow extends Component {
     }
 
     deleteJob() {
-        axios.delete('http://localhost:4000/jobs/delete-job/' + this.props.obj._id)
+        
+        axios.delete(`${mongoURI}/jobs/delete-job/${this.props.obj._id}`)
         .then((res) => {
             console.log('Job successfully deleted!')
         }).catch((error) => {

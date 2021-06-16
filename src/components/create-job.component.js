@@ -40,7 +40,7 @@ onSubmit(e) {
         appliedDate: this.state.appliedDate
     };
 
-    axios.post('http://localhost:4000/jobs/create-job', jobObject)
+    axios.post('mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority', jobObject)
     .then(res => console.log(res.data));
 
     this.setState({title:'', company:'', appliedDate:''})
