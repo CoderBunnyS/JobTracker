@@ -10,16 +10,16 @@ const jobRoute = require('../backend/routes/job.routes')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
-mongoose.connect(
-    process.env.MONGODB_URI,
-    {useNewUrlParser: true}
-    ).then(() => {
-  console.log('Database sucessfully connected!')
-},
-  error => {
-    console.log('Could not connect to database : ' + error)
-  }
-)
+const uri = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority';
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('MongoDB Connected…')
+})
+.catch(err => console.log(err))
 
 const app = express();
 app.use(bodyParser.json());
