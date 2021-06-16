@@ -57,7 +57,7 @@ export default class EditJob extends Component {
       appliedDate: this.state.appliedDate
     };
 
-    axios.put(`${mongoURI}/jobs/update-job/' + this.props.match.params.id, jobObject)
+    axios.put(`${mongoURI}/jobs/update-job/${this.props.match.params.id}`, jobObject)
       .then((res) => {
         console.log(res.data)
         console.log('Job successfully updated')
