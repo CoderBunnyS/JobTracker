@@ -21,7 +21,8 @@ import LogoutButton from './components/partials/LogoutButton';
 function App() {
   const { isLoading } = useAuth0();
 
-  return (<Router>
+  return (
+  <Router>
     <div className="App">
       <header className="App-header">
         <Navbar bg="dark" variant="dark">
@@ -54,7 +55,6 @@ function App() {
           </Container>
         </Navbar>
       </header>
-
       <Container>
         <Row>
           <Col md={12}>
@@ -70,7 +70,8 @@ function App() {
         </Row>
       </Container>
     </div>
-  </Router>);
+  </Router>
+  );
 }
 
 export default App;
