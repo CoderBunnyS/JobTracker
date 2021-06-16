@@ -2,7 +2,7 @@ let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
-let dbConfig = require('./database/db');
+//let dbConfig = require('./database/db');
 const createError = require('http-errors');
 
 // Express Route
@@ -10,9 +10,10 @@ const jobRoute = require('../backend/routes/job.routes')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.db, {
-  useNewUrlParser: true
-}).then(() => {
+mongoose.connect(
+    process.env.MONGODB_URI,
+    {useNewUrlParser: true}
+    ).then(() => {
   console.log('Database sucessfully connected!')
 },
   error => {
