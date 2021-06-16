@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-var mongoURI = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@jobs.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority';
+var mongoURI = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority';
 
 export default class CreateJob extends Component {
 
