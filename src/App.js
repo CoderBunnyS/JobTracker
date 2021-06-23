@@ -14,12 +14,21 @@ import EditJob from "./components/edit-job.component";
 import JobList from "./components/job-list.component";
 //import CreateJob from "./components/create-job.component";
 
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from './components/partials/LoginButton';
+import LogoutButton from './components/partials/LogoutButton';
+
 function App() {
-  return (<Router>
+  const { isLoading } = useAuth0();
+
+  return (
+  <Router>
     <div className="App">
       <header className="App-header">
         <Navbar bg="dark" variant="dark">
           <Container>
+            <LoginButton />
+            <LogoutButton />
 
             <Navbar.Brand>
               <Link to={"/create-job"} className="nav-link">
@@ -46,7 +55,6 @@ function App() {
           </Container>
         </Navbar>
       </header>
-
       <Container>
         <Row>
           <Col md={12}>
@@ -62,7 +70,8 @@ function App() {
         </Row>
       </Container>
     </div>
-  </Router>);
+  </Router>
+  );
 }
 
 export default App;
