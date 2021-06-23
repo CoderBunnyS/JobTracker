@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import DeleteButton from './delete-job.component';
 
-var mongoURI = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority'
+var mongoURI = 'http://localhost:4000/jobs/'
 
 export default class JobTableRow extends Component {
     constructor(props){
@@ -31,9 +32,10 @@ export default class JobTableRow extends Component {
                     <Link className="edit-link" to={"/edit-job/" + this.props.obj._id}>
                         Edit
                     </Link>
-                    <Button size="sm" variant="danger">Delete</Button>
+                    <Button  className = "delete-btn" size="sm" variant="danger">Delete</Button>
                 </td>
             </tr>
         );
     }
 }
+//onClick={DeleteButton()}

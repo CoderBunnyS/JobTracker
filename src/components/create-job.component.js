@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
+var mongoURI = 'http://localhost:4000/jobs/create-job'
+
 export default class CreateJob extends Component {
 
     constructor(props){
@@ -40,7 +42,7 @@ onSubmit(e) {
         appliedDate: this.state.appliedDate
     };
 
-    axios.post('mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority', jobObject)
+    axios.post(mongoURI, jobObject)
     .then(res => console.log(res.data));
 
     this.setState({title:'', company:'', appliedDate:''})
