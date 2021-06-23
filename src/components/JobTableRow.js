@@ -32,9 +32,10 @@ export default class JobTableRow extends Component {
                     <Link className="edit-link" to={"/edit-job/" + this.props.obj._id}>
                         Edit
                     </Link>
-                    <Button onClick={DeleteButton()} className = "delete-btn" size="sm" variant="danger">Delete</Button>
+                    <Button  className = "delete-btn" size="sm" variant="danger">Delete</Button>
                 </td>
             </tr>
         );
     }
 }
+//onClick={DeleteButton()}
