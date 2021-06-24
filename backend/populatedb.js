@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-console.log('This script populates some test jobs, Users, categories and jobInstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority');
+console.log('This script populates some test jobs, Users, categories and jobInstances to your database. Specified database as argument - e.g.: populatedb mongodb://TrackerAdmin:TrackerAdminPassword@cluster0-shard-00-00.euzmb.mongodb.net:27017,cluster0-shard-00-01.euzmb.mongodb.net:27017,cluster0-shard-00-02.euzmb.mongodb.net:27017/TrackerDatabase?ssl=true&replicaSet=atlas-va16fv-shard-0&authSource=admin&retryWrites=true&w=majority');
 
 // Get arguments passed on command line
 var userArgs = process.argv.slice(2);
