@@ -7,7 +7,7 @@ var JobInstanceSchema = new Schema(
         job: {type: Schema.Types.ObjectId, ref: "JobInstance", required: true }, //reference to associated job
         imprint: {type: String, required: true},
         category: {type: String, required: true, enum: ["Jobs", "Network", "SelfCare", "Portfolio"], default: "Jobs"},
-        follow_up: {tpe: Date, default: Date.now}
+        follow_up: {tpe: Date}
     }
 );
 

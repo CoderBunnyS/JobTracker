@@ -14,23 +14,21 @@ let UserSchema = new Schema({
   password: {
     type: String, required: true, maxLength: 100
   }
-}, {
-    collection: 'user'
-  });
+});
 
   //Virtual for full name
   UserSchema
-  .virtual('name'
-  .length(function () {
+  .virtual('name')
+  .get(function () {
     return this.firstName + " " + this.lastName;
-  }));
+  });
 
   //Virtual for user's email
-  UserSchema
-  .virtual('email')
-  .get(function () {
-    return (this.email)
-  })
+  // UserSchema
+  // .virtual('email')
+  // .get(function () {
+  //   return (this.email)
+  // })
 
   //Virtual for user's URL (profile?)
   UserSchema

@@ -11,6 +11,7 @@ const jobRoute = require('../backend/routes/job.routes')
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
 const uri = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority";
+//var uri = "http://localhost:4000/";
 
 mongoose.connect(uri, {
   useNewUrlParser: true,

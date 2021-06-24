@@ -16,4 +16,4 @@ CategorySchema
     return '/category/' + this._id;
 });
 
-module.exports = mongoose.model('Cateory', CategorySchema);
+module.exports = mongoose.model('Category', CategorySchema);

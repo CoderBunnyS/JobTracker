@@ -2,6 +2,7 @@ const { MongoClient } = require("mongodb");
  
 // Replace the following with your Atlas connection string                                                                                                                                        
 const url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority";
+//var url = "http://localhost:4000/";
 const client = new MongoClient(url);
 async function run() {
     try {

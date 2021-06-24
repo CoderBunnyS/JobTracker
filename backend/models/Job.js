@@ -15,7 +15,7 @@ let JobSchema = new Schema({
   },
   category: [{
     type: Schema.Types.ObjectId, ref: 'Category' }], 
-    collection: 'jobs'
+    
   })
 
   //Virtual for job URL
