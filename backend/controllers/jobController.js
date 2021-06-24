@@ -1,7 +1,31 @@
-var Job = require('../models/job');
+var Job = require('../models/Job');
+var User = require('../models/User');
+var Category = require('../models/category');
+var JobInstance = require('../models/jobinstance');
+
+var async = require('async');
 
 exports.index = function(req, res) {
-    res.send('NOT IMPLEMENTED: Site Home Page');
+
+    async.parallel({
+        job_count: function(callback) {
+            Job.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
+        },
+        job_instance_count: function(callback) {
+            JobInstance.countDocuments({}, callback);
+        },
+        job_instance_available_count: function(callback) {
+            JobInstance.countDocuments({status:'Available'}, callback);
+        },
+        user_count: function(callback) {
+            User.countDocuments({}, callback);
+        },
+        category_count: function(callback) {
+            Category.countDocuments({}, callback);
+        }
+    }, function(err, results) {
+        res.render('index', { title: 'ArtemisTracker', error: err, data: results });
+    });
 };
 
 // Display list of all jobs.

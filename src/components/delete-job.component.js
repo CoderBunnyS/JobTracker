@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from "axios"
 
-var mongoURI = 'http://localhost:4000/jobs/delete-job/'
+var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
+//'http://localhost:4000/jobs/delete-job/'
 
 function DeleteJob(props)  {
 
