@@ -10,7 +10,7 @@ const jobRoute = require('../backend/routes/job.routes')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
-const uri = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority';
+const uri = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
