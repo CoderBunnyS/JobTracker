@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import DeleteButton from './delete-job.component';
+import Button from 'react-bootstrap/Button';
 
-var mongoURI = 'http://localhost:4000/jobs/'
+var mongoURI = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@cluster0.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority'
 
 export default class JobTableRow extends Component {
     constructor(props){
@@ -13,7 +13,7 @@ export default class JobTableRow extends Component {
 
     deleteJob() {
         
-        axios.delete(`${mongoURI}/jobs/delete-job/${this.props.obj.id}`)
+        axios.delete(`${mongoURI}/jobs/delete-job/${this.props.obj._id}`)
         .then((res) => {
             console.log('Job successfully deleted!')
         }).catch((error) => {
@@ -27,15 +27,13 @@ export default class JobTableRow extends Component {
                 <td>{this.props.obj.title}</td>
                 <td>{this.props.obj.company}</td>
                 <td>{this.props.obj.appliedDate}</td>
-                <td>{this.props.obj._id}</td>
                 <td>
-                    <Link className="edit-link" to={"/edit-job/" + this.props.obj._id} >
+                    <Link className="edit-link" to={"/edit-job/" + this.props.obj._id}>
                         Edit
                     </Link>
-                    <DeleteButton  className = "delete-btn" to={"/delete-job/" + this.props.obj._id} variant="danger"m >Delete</DeleteButton>
+                    <Button size="sm" variant="danger">Delete</Button>
                 </td>
             </tr>
         );
     }
 }
-//onClick={DeleteButton()}
