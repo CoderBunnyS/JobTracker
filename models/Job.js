@@ -21,7 +21,7 @@ let JobSchema = new Schema({
   //Virtual for job URL
   JobSchema.virtual('url')
   .get(function() {
-    return '/job/' + this._id;
+    return '/jobs/job' + this._id;
   })
 
 module.exports = mongoose.model('Job', JobSchema)
