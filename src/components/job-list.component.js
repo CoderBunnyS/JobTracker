@@ -3,7 +3,8 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
 
-const mongoURI = "http://localhost:4000/jobs/"
+const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
+//"http://localhost:4000/jobs/"
 
 export default class JobList extends Component {
     constructor(props) {

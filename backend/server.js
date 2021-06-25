@@ -6,11 +6,13 @@ let bodyParser = require('body-parser');
 const createError = require('http-errors');
 
 // Express Route
-const jobRoute = require('../backend/routes/job.routes')
+const jobRoute = require('./routes/job.routes.js')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
-const uri = 'mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority';
+const uri = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites";
+console.log("Connected")
+//var uri = "http://localhost:4000/";
 
 mongoose.connect(uri, {
   useNewUrlParser: true,

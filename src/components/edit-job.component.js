@@ -3,7 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-var mongoURI = 'http://localhost:4000/jobs/update-job'
+var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
+//'http://localhost:4000/jobs/update-job'
 export default class EditJob extends Component {
 
   constructor(props) {
@@ -23,17 +24,8 @@ export default class EditJob extends Component {
   }
 
   // componentDidMount() {
-  //   axios.get(`${mongoURI}/jobs/edit-job/` + this.props.match.params.id)
-  //     .then(res => {
-  //       this.setState({
-  //         title: res.data.title,
-  //         company: res.data.company,
-  //         appliedDate: res.data.appliedDate
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
+  //   console.log(`${this._id}`)
+    
   // }
 
   onChangeJobTitle(e) {
@@ -50,11 +42,12 @@ export default class EditJob extends Component {
 
   onSubmit(e) {
     e.preventDefault()
+    
 
     const jobObject = {
       title: this.state.title,
       company: this.state.company,
-      appliedDate: this.state.appliedDate
+      appliedDate: this.state.appliedDate,
     };
 
     axios.put(`${mongoURI}/${this.props.match.params.id}`, jobObject)
