@@ -61,7 +61,9 @@ body h3 {
   width: 274px;
 }
 
-
+.mb-4 {
+  background-color: none;
+}
 
 .home-container-1 {
   display: flex;
@@ -103,4 +105,9 @@ body h3 {
   width: 274px;
   height: 275px;
   margin: 10px;
+}
+
+.row {
+  background: #535353;
+  --bs-gutter-x: 0;
 }

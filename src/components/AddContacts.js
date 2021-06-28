@@ -109,13 +109,18 @@ class AddContacts extends Component {
                 </Col>
             </Row>
             <Row>
-                <Col md={{ span: 5, offset: 4 }}>
+                <Col 
+                // md={{ span: 5, offset: 4 }}
+                >
                     <ListGroup>
                         {/* map over and print items */}
                         {this.state.list.map(item => {
                             return (
 
-                                <ListGroup.Item variant="dark" action
+                                <ListGroup.Item 
+                                // variant="dark"
+                                className="mb-4"
+                                action
                                     onClick={() => this.deleteItem(item.id)}>
                                     {item.value}
                                 </ListGroup.Item>
