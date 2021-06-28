@@ -26,6 +26,9 @@ function App() {
               <Link to={"/create-job"} className="nav-link">
                 Artemis Job Tracker
               </Link>
+              <CreateJob />
+              <EditJob />
+              <JobList />
             </Navbar.Brand>
 
             <Nav className="justify-content-end">
