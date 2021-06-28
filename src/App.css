@@ -37,3 +37,24 @@ body h3 {
   text-decoration: none;
   color: #ffffff;
 }
+
+.jobs {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.components {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mb-3 {
+  width: 200px;
+}
