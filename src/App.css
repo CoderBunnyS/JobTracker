@@ -52,9 +52,55 @@ body h3 {
 
 .components {
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
 }
 
 .mb-3 {
-  width: 200px;
+  background-color: #535353;
+  width: 274px;
+}
+
+
+
+.home-container-1 {
+  display: flex;
+  flex-direction: column;
+  background-color: #535353;
+  width: 274px;
+  height: 646px;
+  /* padding: 10px; */
+  margin: 10px;
+}
+
+.home-container-2 {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  background-color: #535353;
+  width: 416px;
+  height: 275px;
+  margin: 10px;
+}
+
+.home-container-3 {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: #535353;
+  width: 274px;
+  height: 275px;
+  margin: 10px;
+}
+
+.home-container-4 {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: white;
+  width: 274px;
+  height: 275px;
+  margin: 10px;
 }

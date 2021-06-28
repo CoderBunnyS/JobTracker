@@ -68,7 +68,7 @@ class WeeklyGoals extends Component {
     }
 
     render() {
-        return (<Container className="jobs">
+        return (<Container className="home-container-2">
 
             <Row style={{
                 display: "flex",
@@ -78,11 +78,22 @@ class WeeklyGoals extends Component {
                 fontWeight: 'bolder',
             }}
             >Weekly Goals
+                <Button
+                    className="add-item-btn"
+                    variant="dark"
+                    size="lg"
+                    onClick={() => this.addItem()}
+                >
+                    Add New
+                </Button>
             </Row>
 
             <hr />
             <Row>
-                <Col md={{ span: 5, offset: 4 }}>
+                <Col
+                    className="mb-3"
+                // md={{ span: 5, offset: 4 }}
+                >
 
                     <InputGroup className="mb-3">
                         <FormControl
@@ -93,15 +104,6 @@ class WeeklyGoals extends Component {
                             aria-label="add something"
                             aria-describedby="basic-addon2"
                         />
-                        <InputGroup.Append>
-                            <Button
-                                variant="dark"
-                                size="lg"
-                                onClick={() => this.addItem()}
-                            >
-                                ADD
-                            </Button>
-                        </InputGroup.Append>
                     </InputGroup>
 
                 </Col>

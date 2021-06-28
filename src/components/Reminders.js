@@ -11,7 +11,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
-class AddContacts extends Component {
+class Reminders extends Component {
     constructor(props) {
         super(props);
 
@@ -68,7 +68,7 @@ class AddContacts extends Component {
     }
 
     render() {
-        return (<Container className="home-container-1">
+        return (<Container className="home-container-3">
 
             <Row style={{
                 display: "flex",
@@ -77,8 +77,8 @@ class AddContacts extends Component {
                 fontSize: '3rem',
                 fontWeight: 'bolder',
             }}
-            >Contacts
-                <Button
+            >Reminders
+            <Button
                     className="add-item-btn"
                     variant="dark"
                     size="lg"
@@ -90,8 +90,8 @@ class AddContacts extends Component {
 
             <hr />
             <Row>
-                <Col
-                    className="mb-3"
+                <Col 
+                className="mb-3"
                 // md={{ span: 5, offset: 4 }}
                 >
 
@@ -104,6 +104,7 @@ class AddContacts extends Component {
                             aria-label="add something"
                             aria-describedby="basic-addon2"
                         />
+                        
                     </InputGroup>
 
                 </Col>
@@ -130,4 +131,4 @@ class AddContacts extends Component {
     }
 }
 
-export default AddContacts;
+export default Reminders;

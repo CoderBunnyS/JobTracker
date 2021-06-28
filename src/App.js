@@ -23,6 +23,8 @@ import AddJob from './components/AddJob'
 import AddContacts from "./components/AddContacts";
 import WeeklyGoals from "./components/WeeklyGoals";
 import TodaysGoals from "./components/TodaysGoals";
+import Reminders from "./components/Reminders";
+import Inspiration from "./components/Inspiration";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -83,7 +85,8 @@ function App() {
               <TodaysGoals />
             </div>
             <div className="reminders_and_inspiration">
-
+              <Reminders />
+              <Inspiration />
             </div>
           </div>
         </Container>
