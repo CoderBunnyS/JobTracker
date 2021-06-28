@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateJob from "./components/create-job.component";
 import EditJob from "./components/edit-job.component";
 import JobList from "./components/job-list.component";
+//import JobList from "./components/job-list.component";
 //import CreateJob from "./components/create-job.component";
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
 
             <Navbar.Brand>
               <Link to={"/create-job"} className="nav-link">
-                React MERN Stack App
+                Artemis Job Tracker
               </Link>
             </Navbar.Brand>
 
