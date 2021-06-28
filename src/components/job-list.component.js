@@ -3,6 +3,9 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
 
+const mongoURI = "mongodb://TrackerAdmin:TrackerAdminPassword@cluster0-shard-00-00.euzmb.mongodb.net:27017,cluster0-shard-00-01.euzmb.mongodb.net:27017,cluster0-shard-00-02.euzmb.mongodb.net:27017/TrackerDatabase?ssl=true&replicaSet=atlas-va16fv-shard-0&authSource=admin&retryWrites=true&w=majority"
+//"http://localhost:4000/jobs/"
+
 export default class JobList extends Component {
     constructor(props) {
         super(props)
@@ -12,7 +15,7 @@ export default class JobList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/jobs')
+        axios.get(mongoURI)
         .then(res => {
             this.setState({
                 jobs: res.data
