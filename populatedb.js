@@ -12,9 +12,9 @@ var userArgs = process.argv.slice(2);
 
 var async = require('async')
 var Job = require('./models/Job')
-var User = require('./models/user')
+var User = require('./models/User')
 var Category = require('./models/category')
-var jobInstance = require('./models/jobInstance')
+var jobInstance = require('./models/jobinstance')
 
 
 var mongoose = require('mongoose');

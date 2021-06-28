@@ -21,7 +21,7 @@ exports.user_list = function (req, res, next) {
 exports.user_detail = function (req, res, next) {
 
     async.parallel({
-        author: function (callback) {
+        user: function (callback) {
             User.findById(req.params.id)
                 .exec(callback)
         },
@@ -85,7 +85,7 @@ exports.user_create_post = [
             // Save user.
             user.save(function (err) {
                 if (err) { return next(err); }
-                // Successful - redirect to new author record.
+                // Successful - redirect to new user record.
                 res.redirect(user.url);
             });
         }
@@ -97,7 +97,7 @@ exports.user_create_post = [
 exports.user_delete_get = function (req, res, next) {
 
     async.parallel({
-        author: function (callback) {
+        user: function (callback) {
             User.findById(req.params.id).exec(callback)
         },
         users_jobs: function (callback) {
@@ -199,7 +199,7 @@ exports.user_update_post = [
             // Data from form is valid. Update the record.
             User.findByIdAndUpdate(req.params.id, user, {}, function (err, theuser) {
                 if (err) { return next(err); }
-                // Successful - redirect to genre detail page.
+                // Successful - redirect to category detail page.
                 res.redirect(theuser.url);
             });
         }

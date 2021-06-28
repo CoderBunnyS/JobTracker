@@ -1,7 +1,7 @@
 var Job = require('../models/Job');
 var User = require('../models/User');
 var Category = require('../models/category');
-var JobInstance = require('../models/jobinstance');
+//var JobInstance = require('../models/jobinstance');
 
 const { body,validationResult } = require("express-validator");
 
@@ -13,12 +13,12 @@ exports.index = function(req, res) {
         job_count: function(callback) {
             Job.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
         },
-        job_instance_count: function(callback) {
-            JobInstance.countDocuments({}, callback);
-        },
-        job_instance_available_count: function(callback) {
-            JobInstance.countDocuments({status:'Available'}, callback);
-        },
+        //job_instance_count: function(callback) {
+        //    JobInstance.countDocuments({}, callback);
+        //},
+        //job_instance_available_count: function(callback) {
+        //    JobInstance.countDocuments({status:'Available'}, callback);
+        
         user_count: function(callback) {
             User.countDocuments({}, callback);
         },
@@ -52,24 +52,24 @@ exports.job_detail = function(req, res, next) {
               .populate('user')
               .populate('category')
               .exec(callback);
-        },
-        job_instance: function(callback) {
-
-          JobInstance.find({ 'job': req.params.id })
-          .exec(callback);
-        },
-    }, function(err, results) {
-        if (err) { return next(err); }
-        if (results.job==null) { // No results.
-            var err = new Error('Job not found');
-            err.status = 404;
-            return next(err);
         }
-        // Successful, so render.
-        res.render('job_detail', { title: results.job.title, job:  results.job, job_instances: results.job_instance } );
-    });
+        //job_instance: function(callback) {
 
-};
+          //JobInstance.find({ 'job': req.params.id })
+          //.exec(callback);
+        //},
+//    }, function(err, results) {
+ //       if (err) { return next(err); }
+   //     if (results.job==null) { // No results.
+     //       var err = new Error('Job not found');
+       //     err.status = 404;
+         //   return next(err);
+       // }
+        // Successful, so render.
+      //  res.render('job_detail', { title: results.job.title, job:  results.job, job_instances: results.job_instance } );
+   // });
+
+},
 
 // Display job create form on GET.
 exports.job_create_get = function(req, res, next) {
@@ -87,7 +87,7 @@ exports.job_create_get = function(req, res, next) {
         res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories });
     });
 
-};
+});
 
 // Handle job create on POST.
 exports.job_create_post = [
@@ -166,9 +166,9 @@ exports.job_delete_get = function(req, res, next) {
         job: function(callback) {
             Job.findById(req.params.id).populate('user').populate('category').exec(callback);
         },
-        job_jobinstances: function(callback) {
-            JobInstance.find({ 'job': req.params.id }).exec(callback);
-        },
+        //job_jobinstances: function(callback) {
+        //    JobInstance.find({ 'job': req.params.id }).exec(callback);
+       // },
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.job==null) { // No results.
@@ -185,31 +185,31 @@ exports.job_delete_post = function(req, res, next) {
 
     // Assume the post has valid id (ie no validation/sanitization).
 
-    async.parallel({
-        job: function(callback) {
-            Job.findById(req.body.id).populate('user').populate('category').exec(callback);
-        },
-        job_jobinstances: function(callback) {
-            JobInstance.find({ 'job': req.body.id }).exec(callback);
-        },
-    }, function(err, results) {
-        if (err) { return next(err); }
+    //async.parallel({
+    //    job: function(callback) {
+    //        Job.findById(req.body.id).populate('user').populate('category').exec(callback);
+    //    },
+        //job_jobinstances: function(callback) {
+        //    JobInstance.find({ 'job': req.body.id }).exec(callback);
+        //},
+    //}, function(err, results) {
+     //   if (err) { return next(err); }
         // Success
-        if (results.job_jobinstances.length > 0) {
+        //if (results.job_jobinstances.length > 0) {
             // Job has job_instances. Render in same way as for GET route.
-            res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
-            return;
-        }
-        else {
+        //    res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
+        //    return;
+        //}
+        //else {
             // Job has no JobInstance objects. Delete object and redirect to the list of jobs.
-            Job.findByIdAndRemove(req.body.id, function deleteJob(err) {
-                if (err) { return next(err); }
+          //  Job.findByIdAndRemove(req.body.id, function deleteJob(err) {
+            //    if (err) { return next(err); }
                 // Success - got to jobs list.
-                res.redirect('/jobs/jobs');
-            });
+              //  res.redirect('/jobs/jobs');
+            //});
 
-        }
-    });
+    //    }
+    //});
 
 };
 
@@ -319,4 +319,4 @@ exports.job_update_post = [
                 });
         }
     }
-];
+]};

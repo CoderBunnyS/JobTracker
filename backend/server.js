@@ -6,7 +6,7 @@ let bodyParser = require('body-parser');
 const createError = require('http-errors');
 
 // Express Route
-const jobRoute = require('./routes/job.routes.js')
+const jobRoute = require('../routes/jobs')
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;

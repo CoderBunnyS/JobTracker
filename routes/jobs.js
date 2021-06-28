@@ -5,7 +5,7 @@ var router = express.Router();
 var job_controller = require('../controllers/jobController');
 var user_controller = require('../controllers/userController');
 var category_controller = require('../controllers/categoryController');
-var job_instance_controller = require('../controllers/jobInstanceController');
+//var job_instance_controller = require('../controllers/jobInstanceController');
 
 /// Job ROUTES ///
 
@@ -91,27 +91,27 @@ router.get('/categories', category_controller.category_list);
 /// JOBINSTANCE ROUTES ///
 
 // GET request for creating a JobInstance. NOTE This must come before route that displays JobInstance (uses id).
-router.get('/jobinstance/create', job_instance_controller.jobinstance_create_get);
+//router.get('/jobinstance/create', job_instance_controller.jobinstance_create_get);
 
 // POST request for creating JobInstance.
-router.post('/jobinstance/create', job_instance_controller.jobinstance_create_post);
+//router.post('/jobinstance/create', job_instance_controller.jobinstance_create_post);
 
 // GET request to delete JobInstance.
-router.get('/jobinstance/:id/delete', job_instance_controller.jobinstance_delete_get);
+//router.get('/jobinstance/:id/delete', job_instance_controller.jobinstance_delete_get);
 
 // POST request to delete JobInstance.
-router.post('/jobinstance/:id/delete', job_instance_controller.jobinstance_delete_post);
+//router.post('/jobinstance/:id/delete', job_instance_controller.jobinstance_delete_post);
 
 // GET request to update JobInstance.
-router.get('/jobinstance/:id/update', job_instance_controller.jobinstance_update_get);
+///router.get('/jobinstance/:id/update', job_instance_controller.jobinstance_update_get);
 
 // POST request to update JobInstance.
-router.post('/jobinstance/:id/update', job_instance_controller.jobinstance_update_post);
+//router.post('/jobinstance/:id/update', job_instance_controller.jobinstance_update_post);
 
-// GET request for one JobInstance.
-router.get('/jobinstance/:id', job_instance_controller.jobinstance_detail);
+// GET request for one JobInstance.//
+//router.get('/jobinstance/:id', job_instance_controller.jobinstance_detail);
 
 // GET request for list of all JobInstance.
-router.get('/jobinstances', job_instance_controller.jobinstance_list);
+//router.get('/jobinstances', job_instance_controller.jobinstance_list);
 
 module.exports = router;
