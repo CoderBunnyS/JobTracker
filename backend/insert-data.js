@@ -1,8 +1,8 @@
 const { MongoClient } = require("mongodb");
  
 // Atlas connection string                                                                                                                                        
-const url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites";
-//var url = "http://localhost:4000/";
+//const url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
+var url = "http://localhost:4000/";
 const client = new MongoClient(url);
  
  // The database to use
@@ -19,7 +19,8 @@ const client = new MongoClient(url);
 
          // Construct a document                                                                                                                                                              
          let userDocument = {
-             "name": { "first": "Alan", "last": "Turing" },                                                                                                                                
+             "firstName": {"firstName": "Alan"}, 
+             "lastName": {"lastName": "Turing" },                                                                                                                                
              "username": {"username": "username"},  
              "email": {"email": "email@email.com"}
          }
