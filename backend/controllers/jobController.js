@@ -43,16 +43,16 @@ exports.job_list = function(req, res, next) {
 };
 
 // Display detail page for a specific job.
-exports.job_detail = function(req, res, next) {
+ exports.job_detail = function(req, res, next) {
 
-    async.parallel({
-        job: function(callback) {
+//     async.parallel({
+//         job: function(callback) {
 
-            Job.findById(req.params.id)
-              .populate('user')
-              .populate('category')
-              .exec(callback);
-        }
+//             Job.findById(req.params.id)
+//               .populate('user')
+//               .populate('category')
+//               .exec(callback);
+//         }
         //job_instance: function(callback) {
 
           //JobInstance.find({ 'job': req.params.id })
@@ -69,7 +69,7 @@ exports.job_detail = function(req, res, next) {
       //  res.render('job_detail', { title: results.job.title, job:  results.job, job_instances: results.job_instance } );
    // });
 
-},
+};
 
 // Display job create form on GET.
 exports.job_create_get = function(req, res, next) {
@@ -87,7 +87,7 @@ exports.job_create_get = function(req, res, next) {
         res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories });
     });
 
-});
+};
 
 // Handle job create on POST.
 exports.job_create_post = [
@@ -319,4 +319,4 @@ exports.job_update_post = [
                 });
         }
     }
-]};
+];
