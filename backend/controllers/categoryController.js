@@ -12,7 +12,7 @@ exports.category_list = function(req, res, next) {
     .exec(function (err, list_categories) {
       if (err) { return next(err); }
       // Successful, so render.
-      res.render('category_list', { title: 'Category List', list_categories:  list_categories});
+      res.json({ title: 'Category List', list_categories:  list_categories});
     });
 
 };
@@ -40,14 +40,14 @@ exports.category_detail = function(req, res, next) {
             return next(err);
         }
         // Successful, so render.
-        res.render('category_detail', { title: 'Category Detail', category: results.category, category_jobs: results.category_jobs } );
+        res.json({ title: 'Category Detail', category: results.category, category_jobs: results.category_jobs } );
     });
 
 };
 
 // Display Category create form on GET.
 exports.category_create_get = function(req, res, next) {
-    res.render('category_form', { title: 'Create Category'});
+    res.json({ title: 'Create Category'});
 };
 
 // Handle Category create on POST.
@@ -70,7 +70,7 @@ exports.category_create_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values/error messages.
-            res.render('category_form', { title: 'Create Category', category: category, errors: errors.array()});
+            res.json({ title: 'Create Category', category: category, errors: errors.array()});
         return;
         }
         else {
@@ -115,7 +115,7 @@ exports.category_delete_get = function(req, res, next) {
             res.redirect('/jobs/categories');
         }
         // Successful, so render.
-        res.render('category_delete', { title: 'Delete Category', category: results.category, category_jobs: results.category_jobs } );
+        res.json({ title: 'Delete Category', category: results.category, category_jobs: results.category_jobs } );
     });
 
 };
@@ -135,7 +135,7 @@ exports.category_delete_post = function(req, res, next) {
         // Success
         if (results.category_jobs.length > 0) {
             // Category has jobs. Render in same way as for GET route.
-            res.render('category_delete', { title: 'Delete Category', category: results.category, category_jobs: results.category_jobs } );
+            res.json({ title: 'Delete Category', category: results.category, category_jobs: results.category_jobs } );
             return;
         }
         else {
@@ -162,7 +162,7 @@ exports.category_update_get = function(req, res, next) {
             return next(err);
         }
         // Success.
-        res.render('category_form', { title: 'Update Category', category: category });
+        res.json({ title: 'Update Category', category: category });
     });
 
 };
@@ -191,7 +191,7 @@ exports.category_update_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values and error messages.
-            res.render('category_form', { title: 'Update Category', category: category, errors: errors.array()});
+            res.json({ title: 'Update Category', category: category, errors: errors.array()});
         return;
         }
         else {

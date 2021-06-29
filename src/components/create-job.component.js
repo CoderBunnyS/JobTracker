@@ -2,9 +2,11 @@ import React, {Component} from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+require('dotenv').config()
 
 //var mongoURI = "mongodb://TrackerAdmin:TrackerAdminPassword@cluster0-shard-00-00.euzmb.mongodb.net:27017,cluster0-shard-00-01.euzmb.mongodb.net:27017,cluster0-shard-00-02.euzmb.mongodb.net:27017/TrackerDatabase?ssl=true&replicaSet=atlas-va16fv-shard-0&authSource=admin&retryWrites=true&w=majority"
-var mongoURI = 'http://localhost:4000/jobs/create-job'
+var mongoURI = 'http://localhost:4000/jobs/job/create'
+//var mongoURI = process.env.MONGODB_URI;
 
 export default class CreateJob extends Component {
 
@@ -42,7 +44,7 @@ onSubmit(e) {
         company: this.state.company,
         appliedDate: this.state.appliedDate
     };
-
+    console.log(jobObject)
     axios.post(mongoURI, jobObject)
     .then(res => console.log(res.data));
 
