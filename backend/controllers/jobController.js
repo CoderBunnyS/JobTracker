@@ -26,50 +26,39 @@ exports.index = function(req, res) {
             Category.countDocuments({}, callback);
         }
     }, function(err, results) {
-        res.render('index', { title: 'ArtemisTracker', error: err, data: results });
+        res.json({ title: 'ArtemisTracker', error: err, data: results });
     });
 };
 
 // Display list of all jobs.
 exports.job_list = function(req, res, next) {
-    Job.find({}, "title user")
-    .populate('user').exec(function (err, list_jobs) {
+    Job.find({}, (err, allJobs) => {
         if(err) {return next(err)}
-        else {
-            //successful, so render
-            res.render('job_list', {title: 'Job List', job_list: list_jobs});
-        }
+        res.json(allJobs)
     })
+    // Job.find({}, "title user")
+    // .populate('user').exec(function (err, list_jobs) {
+    //     if(err) {return next(err)}
+    //     else {
+    //         //successful, so render
+    //         res.json({title: 'Job List', job_list: list_jobs});
+    //     }
+    // })
 };
 
 // Display detail page for a specific job.
-exports.job_detail = function(req, res, next) {
+ exports.job_detail = function(req, res, next) {
 
     async.parallel({
         job: function(callback) {
-
             Job.findById(req.params.id)
               .populate('user')
               .populate('category')
               .exec(callback);
         }
-        //job_instance: function(callback) {
+    });
 
-          //JobInstance.find({ 'job': req.params.id })
-          //.exec(callback);
-        //},
-//    }, function(err, results) {
- //       if (err) { return next(err); }
-   //     if (results.job==null) { // No results.
-     //       var err = new Error('Job not found');
-       //     err.status = 404;
-         //   return next(err);
-       // }
-        // Successful, so render.
-      //  res.render('job_detail', { title: results.job.title, job:  results.job, job_instances: results.job_instance } );
-   // });
-
-},
+};
 
 // Display job create form on GET.
 exports.job_create_get = function(req, res, next) {
@@ -84,10 +73,10 @@ exports.job_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories });
+        res.json({ title: 'Create Job',users:results.users, categories:results.categories });
     });
 
-});
+};
 
 // Handle job create on POST.
 exports.job_create_post = [
@@ -104,7 +93,7 @@ exports.job_create_post = [
 
     // Validate and sanitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
+    //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('company', 'Company name must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('appliedDate', 'Application Date must not be empty').trim().isLength({ min: 1 }).escape(),
     body('jobs.*').escape(),
@@ -144,7 +133,7 @@ exports.job_create_post = [
                         results.categories[i].checked='true';
                     }
                 }
-                res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+                res.json({ title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
             });
             return;
         }
@@ -175,7 +164,7 @@ exports.job_delete_get = function(req, res, next) {
             res.redirect('/jobs/jobs');
         }
         // Successful, so render.
-        res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
+        res.json({ title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
     });
 
 };
@@ -243,7 +232,7 @@ exports.job_update_get = function(req, res, next) {
                     }
                 }
             }
-            res.render('job_form', { title: 'Update Job', users:results.users, categories:results.categories, job: results.job });
+            res.json({ title: 'Update Job', users:results.users, categories:results.categories, job: results.job });
         });
 
 };
@@ -265,7 +254,7 @@ exports.job_update_post = [
    
     // Validate and santitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
+    //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('company', 'CompanyName must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('appliedDate', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
     body('category.*').escape(),
@@ -279,6 +268,7 @@ exports.job_update_post = [
         // Create a Job object with escaped/trimmed data and old id.
         var job = new Job(
           { title: req.body.title,
+            company: req.body.company,
             user: req.body.user,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
@@ -306,7 +296,7 @@ exports.job_update_post = [
                         results.categories[i].checked='true';
                     }
                 }
-                res.render('job_form', { title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+                res.json({ title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
             });
             return;
         }
@@ -315,8 +305,9 @@ exports.job_update_post = [
             Job.findByIdAndUpdate(req.params.id, job, {}, function (err,thejob) {
                 if (err) { return next(err); }
                    // Successful - redirect to job detail page.
-                   res.redirect(thejob.url);
+                   //res.redirect(thejob.url);
+                   res.json({job:job})
                 });
         }
     }
-]};
+];

@@ -1,8 +1,11 @@
 const { MongoClient } = require("mongodb");
- 
+require('dotenv').config()
+
 // Atlas connection string                                                                                                                                        
 //const url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
-var url = "http://localhost:4000/";
+//var url = "http://localhost:4000/";
+var url = process.env.MONGODB_URI;
+
 const client = new MongoClient(url);
  
  // The database to use

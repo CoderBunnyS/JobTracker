@@ -2,9 +2,16 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+require('dotenv').config()
 
+
+function getID() {
+  const url = window.location.href
+  const pieces = url.split('/')
+  return pieces[pieces.length-1]
+}
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
-var mongoURI = 'http://localhost:4000/jobs/update-job'
+var mongoURI = 'http://localhost:4000/jobs/job'
 export default class EditJob extends Component {
 
   constructor(props) {
@@ -50,18 +57,22 @@ export default class EditJob extends Component {
       appliedDate: this.state.appliedDate,
     };
 
-    axios.put(`${mongoURI}/${this.props.match.params.id}`, jobObject)
+    console.log(getID())
+    console.log(jobObject)
+    console.log(`${mongoURI}/${getID()}/update`)
+    axios.post(`${mongoURI}/${getID()}/update`, jobObject)
       .then((res) => {
-        console.log(res.data)
+        console.log(res)
         console.log('Job successfully updated')
-        window.location.reload(false);
+        //window.location.reload(false);
         // this.componentDidMount()
       }).catch((error) => {
         console.log(error)
       })
 
     // Redirect to Job List 
-    this.props.history.push('/job-list')
+    //this.props.history.push('/job-list')
+    
   }
 
 

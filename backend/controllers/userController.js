@@ -12,7 +12,7 @@ exports.user_list = function (req, res, next) {
         .exec(function (err, list_users) {
             if (err) { return next(err); }
             // Successful, so render.
-            res.render('user_list', { title: 'User List', user_list: list_users });
+            res.json({ title: 'User List', user_list: list_users });
         })
 
 };
@@ -37,14 +37,14 @@ exports.user_detail = function (req, res, next) {
             return next(err);
         }
         // Successful, so render.
-        res.render('user_detail', { title: 'User Detail', user: results.user, user_jobs: results.users_jobs });
+        res.json({ title: 'User Detail', user: results.user, user_jobs: results.users_jobs });
     });
 
 };
 
 // Display User create form on GET.
 exports.user_create_get = function (req, res, next) {
-    res.render('user_form', { title: 'Create User' });
+    res.json({ title: 'Create User' });
 };
 
 // Handle User create on POST.
@@ -76,7 +76,7 @@ exports.user_create_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/errors messages.
-            res.render('user_form', { title: 'Create User', user: user, errors: errors.array() });
+            res.json({ title: 'Create User', user: user, errors: errors.array() });
             return;
         }
         else {
@@ -109,7 +109,7 @@ exports.user_delete_get = function (req, res, next) {
             res.redirect('/jobs/users');
         }
         // Successful, so render.
-        res.render('user_delete', { title: 'Delete User', user: results.user, user_jobs: results.users_jobs });
+        res.json({ title: 'Delete User', user: results.user, user_jobs: results.users_jobs });
     });
 
 };
@@ -128,7 +128,7 @@ exports.user_delete_post = function (req, res, next) {
         // Success.
         if (results.users_jobs.length > 0) {
             // User has jobs. Render in same way as for GET route.
-            res.render('user_delete', { title: 'Delete User', user: results.user, user_jobs: results.users_jobs });
+            res.json({ title: 'Delete User', user: results.user, user_jobs: results.users_jobs });
             return;
         }
         else {
@@ -155,7 +155,7 @@ exports.user_update_get = function (req, res, next) {
             return next(err);
         }
         // Success.
-        res.render('user_form', { title: 'Update User', user: user });
+        res.json({ title: 'Update User', user: user });
 
     });
 };
@@ -192,7 +192,7 @@ exports.user_update_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values and error messages.
-            res.render('user_form', { title: 'Update User', user: user, errors: errors.array() });
+            res.json({ title: 'Update User', user: user, errors: errors.array() });
             return;
         }
         else {

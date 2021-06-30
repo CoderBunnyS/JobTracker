@@ -14,12 +14,13 @@ var helmet = require('helmet');
 
 var app = express();
 var cors = require('cors')
+require('dotenv').config()
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var dev_db_url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
-//var mongoDB = process.env.MONGODB_URI || dev_db_url;
-var mongoDB = "http://localhost:4000/";
+//var dev_db_url = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
+var mongoDB = process.env.MONGODB_URI;
+//var mongoDB = "http://localhost:4000/";
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -57,7 +58,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 module.exports = app;

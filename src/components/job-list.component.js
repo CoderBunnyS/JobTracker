@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
+require('dotenv').config()
 
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
-const mongoURI = "http://localhost:4000/jobs/"
+const serverRoute = "http://localhost:4000/jobs/jobs"
 
 export default class JobList extends Component {
     constructor(props) {
@@ -15,13 +16,16 @@ export default class JobList extends Component {
     }
 
     componentDidMount() {
-        axios.get(mongoURI)
+        axios.get(serverRoute)
+        
         .then(res => {
+          console.log(res)
             this.setState({
-                jobs: res.data
+              jobs: res.data,
             })
         })
         .catch((error) => {
+            //console.log(error.response.data)
             console.log(error + " axios error");
         })
     }

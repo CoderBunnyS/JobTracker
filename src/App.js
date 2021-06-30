@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "bootstrap/dist/css/bootstrap.css";
+//import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -37,7 +37,7 @@ function App() {
               </Link>
               <CreateJob />
               <EditJob />
-              <JobList />
+              {/* <JobList /> */}
             </Navbar.Brand>
 
             <Nav className="justify-content-end">

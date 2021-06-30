@@ -28,7 +28,7 @@ router.post('/job/:id/delete', job_controller.job_delete_post);
 router.get('/job/:id/update', job_controller.job_update_get);
 
 // POST request to update Job.
-router.post('/job/:id/update', job_controller.job_update_post);
+router.put('/job/:id/update', job_controller.job_update_post);
 
 // GET request for one Job.
 router.get('/job/:id', job_controller.job_detail);

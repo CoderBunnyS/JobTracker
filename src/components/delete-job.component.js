@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from "axios"
+require('dotenv').config()
 
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
-var mongoURI = 'http://localhost:4000/jobs/delete-job/'
+//var mongoURI = 'http://localhost:4000/jobs/delete-job/'
+var mongoURI = process.env.MONGODB_URI;
 
 function DeleteJob(props)  {
 
