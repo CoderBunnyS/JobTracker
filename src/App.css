@@ -1,3 +1,6 @@
+body {
+}
+
 .wrapper {
   padding-top: 30px;
 }
@@ -10,14 +13,14 @@ body h3 {
   color: #ffffff;
 }
 
-.form-wrapper,
-.table-wrapper {
+.form-wrapper {
   max-width: 500px;
   margin: 0 auto;
 }
 
 .table-wrapper {
-  max-width: 700px;
+  /* max-width: 700px; */
+  width: 100%;
 }
 
 .edit-link {
@@ -37,6 +40,43 @@ body h3 {
   text-decoration: none;
   color: #ffffff;
 }
-body {
-  background-color: hotpink;
+
+h1 {
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 600;
+  font-size: calc(2rem + 1.5vw);
+}
+
+.site-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.hero-img {
+  position: fixed;
+  z-index: -20;
+  width: 100vw;
+  height: 50vh;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.navbar {
+  background: rgba(1, 1, 1, 0.3) !important;
+  height: 4rem;
+
+}
+.inlineIcon {
+  vertical-align: middle;
+}
+
+.l {width: 1.5rem}
+.xl {width: 2rem}
+
+.container {
+  width: 100%;
+  max-width: none;
+  padding: 0 2rem;
 }

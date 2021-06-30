@@ -12,7 +12,7 @@ export default class CreateJob extends Component {
 
     constructor(props){
         super(props)
-            
+
     //setting functions
     this.onChangeJobTitle = this.onChangeJobTitle.bind(this);
     this.onChangeCompany = this.onChangeCompany.bind(this);
@@ -69,7 +69,7 @@ onSubmit(e) {
           <Form.Control type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate}/>
         </Form.Group>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
+        <Button variant="primary" size="lg" block="block" type="submit" className="round">
           Create Job
         </Button>
       </Form>

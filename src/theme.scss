@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap');
+$font-family-sans-serif: 'Montserrat', sans-serif;
+
+@function color($key: "blue") {
+  @return map-get($colors, $key);
+}
+
+@function theme-color($key: "primary") {
+  @return map-get($theme-colors, $key);
+}
+
+@function gray($key: "100") {
+  @return map-get($grays, $key);
+}
+
+@function theme-color-level($color-name: "primary", $level: 0) {
+  $color: theme-color($color-name);
+  $color-base: if($level > 0, #000, #fff);
+  $level: abs($level);
+
+  @return mix($color-base, $color, $level);
+}
+
+
+
+
+//Variable overides
+$body-bg: #010101;
+$body-color: #FFFFFF;
+
+
+$theme-colors: (
+  "primary": #51CD86,
+  "dark": #535353,
+  "danger": red,
+);
+
+
+.btn.round {
+  border-radius: 40px;
+  width: 15rem;
+}
+
+
+@import "~bootstrap/scss/bootstrap";
