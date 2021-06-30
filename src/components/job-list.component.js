@@ -17,7 +17,7 @@ export default class JobList extends Component {
 
     componentDidMount() {
         axios.get(serverRoute)
-        
+
         .then(res => {
           console.log(res)
             this.setState({
@@ -37,6 +37,9 @@ export default class JobList extends Component {
     }
     render() {
         return (<div className="table-wrapper">
+          <h1>Jobs</h1>
+          <h2>Keep track of the jobs you are applying to</h2>
+
           <Table striped bordered hover>
             <thead>
               <tr>

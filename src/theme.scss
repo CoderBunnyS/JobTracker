@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap');
+$font-family-sans-serif: 'Montserrat', sans-serif;
+
 @function color($key: "blue") {
   @return map-get($colors, $key);
 }
@@ -28,12 +31,10 @@ $body-color: #FFFFFF;
 
 $theme-colors: (
   "primary": #51CD86,
+  "dark": #535353,
   "danger": red,
 );
 
-body {
-  font-family: 'IBM Plex Sans Condensed', sans-serif;
-}
 
 .btn.round {
   border-radius: 40px;
