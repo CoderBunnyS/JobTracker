@@ -58,6 +58,13 @@ exports.job_list = function(req, res, next) {
     //     }
     // });
 
+
+
+    Job.findById(req.params.id, (err, val) => {
+      if (err) {next(err)}
+      res.json(val)
+    })
+
 };
 
 // Display job create form on GET.

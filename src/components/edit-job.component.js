@@ -10,6 +10,7 @@ function getID() {
   const pieces = url.split('/')
   return pieces[pieces.length-1]
 }
+
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
 var mongoURI = 'http://localhost:4000/jobs/job'
 export default class EditJob extends Component {
@@ -30,10 +31,22 @@ export default class EditJob extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   console.log(`${this._id}`)
-    
-  // }
+  componentDidMount() {
+    axios.get(`${mongoURI}/${getID()}`)
+      .then((res) => {
+        // console.log(res)
+        this.setState({
+          title: res.data.title,
+          company: res.data.company,
+          appliedDate: res.data.appliedDate
+        })
+        //window.location.reload(false);
+        // this.componentDidMount()
+      }).catch((error) => {
+        console.log(error)
+      })
+
+  }
 
   onChangeJobTitle(e) {
     this.setState({ title: e.target.value })
@@ -49,7 +62,7 @@ export default class EditJob extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-    
+
 
     const jobObject = {
       title: this.state.title,
@@ -70,9 +83,9 @@ export default class EditJob extends Component {
         console.log(error)
       })
 
-    // Redirect to Job List 
-    //this.props.history.push('/job-list')
-    
+    // Redirect to Job List
+    // this.props.history.push('/job-list')
+
   }
 
 
