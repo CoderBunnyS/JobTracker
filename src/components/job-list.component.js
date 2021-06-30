@@ -15,6 +15,14 @@ export default class JobList extends Component {
         };
     }
 
+    deleteItem(index){
+      const newJobs = [...this.state.jobs];
+      newJobs.splice(index, 1)
+      this.setState({
+        jobs: newJobs
+      })
+    }
+
     componentDidMount() {
         axios.get(serverRoute)
 
@@ -32,7 +40,7 @@ export default class JobList extends Component {
 
     DataTable(){
         return this.state.jobs.map((res, i) => {
-            return <JobTableRow obj = {res} key={i} JL={this} />;
+            return <JobTableRow obj={res} key={i} JL={this} remove={() => this.deleteItem(i)} />;
         })
     }
     render() {

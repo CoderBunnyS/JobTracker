@@ -19,16 +19,11 @@ console.log("Connected")
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true, 
+  useUnifiedTopology: true,
   useFindAndModify: false
 })
 .then(() => {
   console.log('MongoDB Connected…')
-  console.log(mongoose.connection.db.name)
-  console.log(Job.db)
-  Job.find({}, (err, res) => {
-    console.log(res)
-  })
 })
 .catch(err => console.log(err))
 

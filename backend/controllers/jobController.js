@@ -18,7 +18,7 @@ exports.index = function(req, res) {
         //},
         //job_instance_available_count: function(callback) {
         //    JobInstance.countDocuments({status:'Available'}, callback);
-        
+
         user_count: function(callback) {
             User.countDocuments({}, callback);
         },
@@ -49,14 +49,14 @@ exports.job_list = function(req, res, next) {
 // Display detail page for a specific job.
  exports.job_detail = function(req, res, next) {
 
-    async.parallel({
-        job: function(callback) {
-            Job.findById(req.params.id)
-              .populate('user')
-              .populate('category')
-              .exec(callback);
-        }
-    });
+    // async.parallel({
+    //     job: function(callback) {
+    //         Job.findById(req.params.id)
+    //           .populate('user')
+    //           .populate('category')
+    //           .exec(callback);
+    //     }
+    // });
 
 };
 
@@ -99,7 +99,7 @@ exports.job_create_post = [
     body('jobs.*').escape(),
     // Process request after validation and sanitization.
     (req, res, next) => {
-        
+
 
         // Extract the validation errors from a request.
         const errors = validationResult(req);
@@ -174,31 +174,10 @@ exports.job_delete_post = function(req, res, next) {
 
     // Assume the post has valid id (ie no validation/sanitization).
 
-    //async.parallel({
-    //    job: function(callback) {
-    //        Job.findById(req.body.id).populate('user').populate('category').exec(callback);
-    //    },
-        //job_jobinstances: function(callback) {
-        //    JobInstance.find({ 'job': req.body.id }).exec(callback);
-        //},
-    //}, function(err, results) {
-     //   if (err) { return next(err); }
-        // Success
-        //if (results.job_jobinstances.length > 0) {
-            // Job has job_instances. Render in same way as for GET route.
-        //    res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
-        //    return;
-        //}
-        //else {
-            // Job has no JobInstance objects. Delete object and redirect to the list of jobs.
-          //  Job.findByIdAndRemove(req.body.id, function deleteJob(err) {
-            //    if (err) { return next(err); }
-                // Success - got to jobs list.
-              //  res.redirect('/jobs/jobs');
-            //});
-
-    //    }
-    //});
+    Job.findByIdAndDelete(req.params.id, (err, deleted) => {
+      if (err) { return next(err) }
+      res.status(205).json({message: 'gone'})
+    })
 
 };
 
@@ -251,7 +230,7 @@ exports.job_update_post = [
         }
         next();
     },
-   
+
     // Validate and santitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
     //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
