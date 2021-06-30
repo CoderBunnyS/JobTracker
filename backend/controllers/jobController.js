@@ -49,29 +49,14 @@ exports.job_list = function(req, res, next) {
 // Display detail page for a specific job.
  exports.job_detail = function(req, res, next) {
 
-//     async.parallel({
-//         job: function(callback) {
-
-//             Job.findById(req.params.id)
-//               .populate('user')
-//               .populate('category')
-//               .exec(callback);
-//         }
-        //job_instance: function(callback) {
-
-          //JobInstance.find({ 'job': req.params.id })
-          //.exec(callback);
-        //},
-//    }, function(err, results) {
- //       if (err) { return next(err); }
-   //     if (results.job==null) { // No results.
-     //       var err = new Error('Job not found');
-       //     err.status = 404;
-         //   return next(err);
-       // }
-        // Successful, so render.
-      //  res.render('job_detail', { title: results.job.title, job:  results.job, job_instances: results.job_instance } );
-   // });
+    async.parallel({
+        job: function(callback) {
+            Job.findById(req.params.id)
+              .populate('user')
+              .populate('category')
+              .exec(callback);
+        }
+    });
 
 };
 
@@ -269,7 +254,7 @@ exports.job_update_post = [
    
     // Validate and santitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
+    //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('company', 'CompanyName must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('appliedDate', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
     body('category.*').escape(),
@@ -283,6 +268,7 @@ exports.job_update_post = [
         // Create a Job object with escaped/trimmed data and old id.
         var job = new Job(
           { title: req.body.title,
+            company: req.body.company,
             user: req.body.user,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
@@ -319,7 +305,8 @@ exports.job_update_post = [
             Job.findByIdAndUpdate(req.params.id, job, {}, function (err,thejob) {
                 if (err) { return next(err); }
                    // Successful - redirect to job detail page.
-                   res.redirect(thejob.url);
+                   //res.redirect(thejob.url);
+                   res.json({job:job})
                 });
         }
     }

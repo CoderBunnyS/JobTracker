@@ -26,7 +26,7 @@ exports.index = function(req, res) {
             Category.countDocuments({}, callback);
         }
     }, function(err, results) {
-        res.render('index', { title: 'ArtemisTracker', error: err, data: results });
+        res.json({ title: 'ArtemisTracker', error: err, data: results });
     });
 };
 
@@ -37,7 +37,7 @@ exports.job_list = function(req, res, next) {
         if(err) {return next(err)}
         else {
             //successful, so render
-            res.render('job_list', {title: 'Job List', job_list: list_jobs});
+            res.json({title: 'Job List', job_list: list_jobs});
         }
     })
 };
@@ -84,7 +84,7 @@ exports.job_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories });
+        res.json({ title: 'Create Job',users:results.users, categories:results.categories });
     });
 
 });
@@ -144,7 +144,7 @@ exports.job_create_post = [
                         results.categories[i].checked='true';
                     }
                 }
-                res.render('job_form', { title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+                res.json({ title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
             });
             return;
         }
@@ -175,7 +175,7 @@ exports.job_delete_get = function(req, res, next) {
             res.redirect('/jobs/jobs');
         }
         // Successful, so render.
-        res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
+        res.json({ title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
     });
 
 };
@@ -243,7 +243,7 @@ exports.job_update_get = function(req, res, next) {
                     }
                 }
             }
-            res.render('job_form', { title: 'Update Job', users:results.users, categories:results.categories, job: results.job });
+            res.json({ title: 'Update Job', users:results.users, categories:results.categories, job: results.job });
         });
 
 };
@@ -251,9 +251,10 @@ exports.job_update_get = function(req, res, next) {
 
 // Handle job update on POST.
 exports.job_update_post = [
-
+    
     // Convert the category to an array.
     (req, res, next) => {
+        console.log("this is working")
         if(!(req.body.category instanceof Array)){
             if(typeof req.body.category==='undefined')
             req.body.category=[];
@@ -265,10 +266,10 @@ exports.job_update_post = [
    
     // Validate and santitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
+    //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('company', 'CompanyName must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('appliedDate', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
-    body('category.*').escape(),
+    //body('category.*').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -279,10 +280,10 @@ exports.job_update_post = [
         // Create a Job object with escaped/trimmed data and old id.
         var job = new Job(
           { title: req.body.title,
-            user: req.body.user,
+            //user: req.body.user,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
-            category: (typeof req.body.category==='undefined') ? [] : req.body.category,
+            //category: (typeof req.body.category==='undefined') ? [] : req.body.category,
             _id:req.params.id // This is required, or a new ID will be assigned!
            });
 
@@ -306,7 +307,7 @@ exports.job_update_post = [
                         results.categories[i].checked='true';
                     }
                 }
-                res.render('job_form', { title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+                res.json({ title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
             });
             return;
         }
