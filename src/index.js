@@ -1,16 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import JobList from "./components/job-list.component";
+import CreateJob from './components/create-job.component'
 
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(
+const routes = (
   <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("root")
+    <Switch>
+    <Route exact path='/' component={CreateJob} />
+    <Route path = "/create-job" component={CreateJob} />
+    </Switch>
+    
+  </BrowserRouter>
+)
+ReactDOM.render(routes, document.getElementById("root")
+  
+
+
 );
 
 // If you want your app to work offline and load faster, you can change

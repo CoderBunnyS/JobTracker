@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
@@ -37,6 +38,7 @@ export default class JobList extends Component {
     }
     render() {
         return (<div className="table-wrapper">
+          <Link to="/create-job">Create Job</Link>
           <Table striped bordered hover>
             <thead>
               <tr>
