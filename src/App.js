@@ -21,11 +21,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/partials/LoginButton';
 import LogoutButton from './components/partials/LogoutButton';
 import Icon from './components/icon.component'
+import Profile from './components/profile'
+import Dashboard from './components/dashboard'
 
 import BG from './components/PageBackground.component'
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   return (
   <Router>
@@ -49,12 +51,20 @@ function App() {
             </Navbar.Brand>
 
             <Nav className="justify-content-end">
-              <Link to={"/create-job"} className="nav-link">
-                Create Job
-              </Link>
+              {
+                isAuthenticated &&
+                <Link to={"/create-job"} className="nav-link">
+                  Create Job
+                </Link>
+              }
+
               <Link to={"/job-list"} className="nav-link">
                 Jobs
               </Link>
+              <Link to={"/profile"} className="nav-link">
+                Profile
+              </Link>
+              <LoginButton />
             </Nav>
 
           </Container>
@@ -65,10 +75,12 @@ function App() {
           <Col md={12}>
             <div className="wrapper">
               <Switch>
-                <Route exact path='/' />
+                <Route exact path='/' component={Dashboard}/>
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/edit-job/:id" component={EditJob} />
                 <Route path="/job-list" component={JobList} />
+                <Route path="/profile" component={Profile} />
+
               </Switch>
             </div>
           </Col>

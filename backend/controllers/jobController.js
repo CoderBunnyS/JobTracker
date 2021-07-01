@@ -18,7 +18,7 @@ exports.index = function(req, res) {
         //},
         //job_instance_available_count: function(callback) {
         //    JobInstance.countDocuments({status:'Available'}, callback);
-        
+
         user_count: function(callback) {
             User.countDocuments({}, callback);
         },
@@ -46,17 +46,39 @@ exports.job_list = function(req, res, next) {
     // })
 };
 
+exports.job_list_by_user = function(req, res, next) {
+    Job.find({username: req.params.username}, (err, allJobs) => {
+        if(err) {return next(err)}
+        res.json(allJobs)
+    })
+    // Job.find({}, "title user")
+    // .populate('user').exec(function (err, list_jobs) {
+    //     if(err) {return next(err)}
+    //     else {
+    //         //successful, so render
+    //         res.json({title: 'Job List', job_list: list_jobs});
+    //     }
+    // })
+};
+
 // Display detail page for a specific job.
  exports.job_detail = function(req, res, next) {
 
-    async.parallel({
-        job: function(callback) {
-            Job.findById(req.params.id)
-              .populate('user')
-              .populate('category')
-              .exec(callback);
-        }
-    });
+    // async.parallel({
+    //     job: function(callback) {
+    //         Job.findById(req.params.id)
+    //           .populate('user')
+    //           .populate('category')
+    //           .exec(callback);
+    //     }
+    // });
+
+
+
+    Job.findById(req.params.id, (err, val) => {
+      if (err) {next(err)}
+      res.json(val)
+    })
 
 };
 
@@ -79,74 +101,90 @@ exports.job_create_get = function(req, res, next) {
 };
 
 // Handle job create on POST.
-exports.job_create_post = [
-    // Convert the category to an array.
-    (req, res, next) => {
-        if(!(req.body.category instanceof Array)){
-            if(typeof req.body.category==='undefined')
-            req.body.category=[];
-            else
-            req.body.category=new Array(req.body.category);
-        }
-        next();
-    },
-
-    // Validate and sanitize fields.
-    body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-    //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('company', 'Company name must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('appliedDate', 'Application Date must not be empty').trim().isLength({ min: 1 }).escape(),
-    body('jobs.*').escape(),
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-        
-
-        // Extract the validation errors from a request.
-        const errors = validationResult(req);
-
-        // Create a Job object with escaped and trimmed data.
-        var job = new Job(
-          { title: req.body.title,
-            user: req.body.user,
-            company: req.body.company,
-            appliedDate: req.body.appliedDate,
-            category: req.body.category
-           });
-
-        if (!errors.isEmpty()) {
-            // There are errors. Render form again with sanitized values/error messages.
-
-            // Get all users and categories for form.
-            async.parallel({
-                users: function(callback) {
-                    User.find(callback);
-                },
-                categories: function(callback) {
-                    Category.find(callback);
-                },
-            }, function(err, results) {
-                if (err) { return next(err); }
-
-                // Mark our selected categories as checked.
-                for (let i = 0; i < results.categories.length; i++) {
-                    if (job.category.indexOf(results.categories[i]._id) > -1) {
-                        results.categories[i].checked='true';
-                    }
-                }
-                res.json({ title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
-            });
-            return;
-        }
-        else {
-            // Data from form is valid. Save job.
-            job.save(function (err) {
-                if (err) { return next(err); }
-                   // Successful - redirect to new job record.
-                   res.redirect(job.url);
-                });
-        }
-    }
-];
+exports.job_create_post = (req, res, next) => {
+  const job = new Job(
+    { title: req.body.title,
+      user: req.body.user,
+      company: req.body.company,
+      appliedDate: req.body.appliedDate,
+      category: req.body.category,
+      username: req.body.username,
+     });
+  job.save((err, val) => {
+    if (err) {return next(err)}
+    res.json({job})
+  })
+}
+// [
+//     // Convert the category to an array.
+//     (req, res, next) => {
+//         if(!(req.body.category instanceof Array)){
+//             if(typeof req.body.category==='undefined')
+//             req.body.category=[];
+//             else
+//             req.body.category=new Array(req.body.category);
+//         }
+//         next();
+//     },
+//
+//     // Validate and sanitize fields.
+//     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
+//     //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
+//     body('company', 'Company name must not be empty.').trim().isLength({ min: 1 }).escape(),
+//     body('appliedDate', 'Application Date must not be empty').trim().isLength({ min: 1 }).escape(),
+//     body('jobs.*').escape(),
+//     // Process request after validation and sanitization.
+//     (req, res, next) => {
+//
+//       console.log('create hit');
+//
+//         // Extract the validation errors from a request.
+//         const errors = validationResult(req);
+//
+//         // Create a Job object with escaped and trimmed data.
+//         var job = new Job(
+//           { title: req.body.title,
+//             user: req.body.user,
+//             company: req.body.company,
+//             appliedDate: req.body.appliedDate,
+//             category: req.body.category,
+//             username: req.body.username,
+//            });
+//
+//         if (!errors.isEmpty()) {
+//             // There are errors. Render form again with sanitized values/error messages.
+//
+//             // Get all users and categories for form.
+//             async.parallel({
+//                 users: function(callback) {
+//                     User.find(callback);
+//                 },
+//                 categories: function(callback) {
+//                     Category.find(callback);
+//                 },
+//             }, function(err, results) {
+//                 if (err) { return next(err); }
+//
+//                 // Mark our selected categories as checked.
+//                 for (let i = 0; i < results.categories.length; i++) {
+//                     if (job.category.indexOf(results.categories[i]._id) > -1) {
+//                         results.categories[i].checked='true';
+//                     }
+//                 }
+//                 res.json({ title: 'Create Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+//             });
+//             return;
+//         }
+//         else {
+//             // Data from form is valid. Save job.
+//             job.save(function (err) {
+//                 if (err) { return next(err); }
+//                    // Successful - redirect to new job record.
+//                    res.redirect(job.url);
+//                 });
+//         }
+//     }
+// ];
 
 // Display job delete form on GET.
 exports.job_delete_get = function(req, res, next) {
@@ -174,31 +212,10 @@ exports.job_delete_post = function(req, res, next) {
 
     // Assume the post has valid id (ie no validation/sanitization).
 
-    //async.parallel({
-    //    job: function(callback) {
-    //        Job.findById(req.body.id).populate('user').populate('category').exec(callback);
-    //    },
-        //job_jobinstances: function(callback) {
-        //    JobInstance.find({ 'job': req.body.id }).exec(callback);
-        //},
-    //}, function(err, results) {
-     //   if (err) { return next(err); }
-        // Success
-        //if (results.job_jobinstances.length > 0) {
-            // Job has job_instances. Render in same way as for GET route.
-        //    res.render('job_delete', { title: 'Delete Job', job: results.job, job_instances: results.job_jobinstances } );
-        //    return;
-        //}
-        //else {
-            // Job has no JobInstance objects. Delete object and redirect to the list of jobs.
-          //  Job.findByIdAndRemove(req.body.id, function deleteJob(err) {
-            //    if (err) { return next(err); }
-                // Success - got to jobs list.
-              //  res.redirect('/jobs/jobs');
-            //});
-
-    //    }
-    //});
+    Job.findByIdAndDelete(req.params.id, (err, deleted) => {
+      if (err) { return next(err) }
+      res.status(205).json({message: 'gone'})
+    })
 
 };
 
@@ -251,7 +268,7 @@ exports.job_update_post = [
         }
         next();
     },
-   
+
     // Validate and santitize fields.
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
     //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),

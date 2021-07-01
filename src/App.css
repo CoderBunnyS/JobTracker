@@ -13,6 +13,10 @@ body h3 {
   color: #ffffff;
 }
 
+input{
+  color: red !important;
+}
+
 .form-wrapper {
   max-width: 500px;
   margin: 0 auto;

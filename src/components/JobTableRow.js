@@ -5,24 +5,29 @@ import Button from 'react-bootstrap/Button';
 
 
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
-var mongoURI = "http://localhost:4000/";
+
+
 
 export default class JobTableRow extends Component {
-    constructor(props){
-    super(props);
-    this.deleteJob = this.deleteJob.bind(this);
+    constructor(props) {
+      super(props);
+      this.deleteJob = this.deleteJob.bind(this);
     }
 
     deleteJob() {
-        
-        axios.delete(`${mongoURI}/jobs/delete-job/${this.props.obj._id}`)
+        const url = process.env.REACT_APP_BACKEND_URL + `jobs/job/${this.props.obj._id}/delete`
+        console.log(url);
+
+        axios.post(url)
         .then((res) => {
+            console.log(res);
             console.log('Job successfully deleted!')
+            this.props.remove();
         }).catch((error) => {
             console.log(error)
         })
     }
-    
+
     render() {
         return (
             <tr>
@@ -33,7 +38,7 @@ export default class JobTableRow extends Component {
                     <Link className="edit-link" to={"/edit-job/" + this.props.obj._id}>
                         Edit
                     </Link>
-                    <Button size="sm" variant="danger">Delete</Button>
+                    <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button>
                 </td>
             </tr>
         );
