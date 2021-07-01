@@ -3,10 +3,19 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
 import { withAuth0 } from '@auth0/auth0-react';
-
+import { Switch, Route, Link } from "react-router-dom"
+import createJobComponent from "./create-job.component";
 
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
 const serverRoute = "http://localhost:4000/jobs/jobs"
+
+const Modal = () => {
+  return(
+    <div>
+    <createJobComponent />
+    </div>
+  )
+}
 
 class JobList extends Component {
     constructor(props) {
@@ -55,6 +64,16 @@ class JobList extends Component {
     render() {
         return (<div className="table-wrapper">
           <h1>Jobs</h1>
+          <div className = "links">
+            <Link to="/job-list" className = "link">Your Jobs</Link>
+            <Link to="/create-job" className="link">Create Job</Link>
+          </div>
+          <div>
+            <Switch>
+              <Route path = "/job-list" exact component={JobList} />
+              <Route path = "/create-job" component = {Modal} />
+            </Switch>
+          </div>
           <h2>Keep track of the jobs you are applying to</h2>
 
           <Table striped bordered hover>
