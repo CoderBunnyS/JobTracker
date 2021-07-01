@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
-require('dotenv').config()
+import { withAuth0 } from '@auth0/auth0-react';
+
 
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
 const serverRoute = "http://localhost:4000/jobs/jobs"
 
-export default class JobList extends Component {
+class JobList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,18 +25,26 @@ export default class JobList extends Component {
     }
 
     componentDidMount() {
-        axios.get(serverRoute)
+        const { isAuthenticated, user } = this.props.auth0;
+        console.log(user)
+        if (isAuthenticated) {
+          const route = process.env.REACT_APP_BACKEND_URL + `jobs/jobs/byuser/${user.name}`
 
-        .then(res => {
-          console.log(res)
-            this.setState({
-              jobs: res.data,
-            })
-        })
-        .catch((error) => {
-            //console.log(error.response.data)
-            console.log(error + " axios error");
-        })
+          axios.get(route)
+
+          .then(res => {
+            console.log(res)
+              this.setState({
+                jobs: res.data,
+              })
+          })
+          
+          .catch((error) => {
+              //console.log(error.response.data)
+              console.log(error + " axios error");
+          })
+
+        }
     }
 
     DataTable(){
@@ -64,3 +73,5 @@ export default class JobList extends Component {
         </div>);
       }
     }
+
+export default withAuth0(JobList)

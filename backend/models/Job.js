@@ -5,7 +5,7 @@ let JobSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: "User", required: false},
 
   title: {
-    type: String, required: true, maxLength: 100 
+    type: String, required: true, maxLength: 100
   },
   company: {
     type: String, required: true, maxLength: 100
@@ -13,10 +13,16 @@ let JobSchema = new Schema({
   appliedDate: {
     type: String, required: true
   },
+  username: {
+    type: String
+  },
+  phase: {
+    type: String
+  },
   category: [{
-    type: Schema.Types.ObjectId, ref: 'Category' }], 
-    
-  })
+    type: Schema.Types.ObjectId, ref: 'Category' }],
+  }
+  )
 
   //Virtual for job URL
   // JobSchema.virtual('url')
