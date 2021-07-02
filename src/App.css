@@ -18,8 +18,10 @@ input{
 }
 
 .form-wrapper {
-  max-width: 500px;
+  width: 70%;
   margin: 0 auto;
+  color: black !important;
+  padding: 4rem 4rem;
 }
 
 .table-wrapper {
@@ -84,3 +86,4 @@ h1 {
   max-width: none;
   padding: 0 2rem;
 }
+

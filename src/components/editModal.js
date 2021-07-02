@@ -6,14 +6,18 @@ import Modal from "react-bootstrap/Modal"
 require('dotenv').config()
 
 
-function getID() {
-  const url = window.location.href
-  const pieces = url.split('/')
-  return pieces[pieces.length-1]
+// function getID() {
+//   const url = window.location.href
+//   const pieces = url.split('/')
+//   return pieces[pieces.length-1]
+// }
+function handleUpdate() {
+    
 }
 
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
 var mongoURI = 'http://localhost:4000/jobs/job'
+
 export default class EditJob extends Component {
 
   constructor(props) {
@@ -33,19 +37,19 @@ export default class EditJob extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${mongoURI}/${getID()}`)
-      .then((res) => {
-        // console.log(res)
+    // axios.get(`${mongoURI}/${getID()}`)
+    //   .then((res) => {
+        console.log(this.props)
         this.setState({
-          title: res.data.title,
-          company: res.data.company,
-          appliedDate: res.data.appliedDate
+          title: this.props.Data.title,
+          company: this.props.Data.company,
+          appliedDate: this.props.Data.appliedDate
         })
-        //window.location.reload(false);
-        // this.componentDidMount()
-      }).catch((error) => {
-        console.log(error)
-      })
+    //     //window.location.reload(false);
+    //     // this.componentDidMount()
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
 
   }
 
@@ -71,15 +75,18 @@ export default class EditJob extends Component {
       appliedDate: this.state.appliedDate,
     };
 
-    console.log(getID())
+    console.log(`${mongoURI}/${this.props.Data._id}/update`)
     console.log(jobObject)
-    console.log(`${mongoURI}/${getID()}/update`)
-    axios.post(`${mongoURI}/${getID()}/update`, jobObject)
+    //console.log(`${mongoURI}/${getID()}/update`)
+    axios.post(`${mongoURI}/${this.props.Data._id}/update`, jobObject)
       .then((res) => {
         console.log(res)
         console.log('Job successfully updated')
         //window.location.reload(false);
         // this.componentDidMount()
+        this.setState({title:'', company:'', appliedDate:''})
+      this.props.handleUpdate(jobObject)
+      this.props.handleHide()
       }).catch((error) => {
         console.log(error)
       })
@@ -92,7 +99,8 @@ export default class EditJob extends Component {
 
   render() {
     return (
-    <Modal><div className="form-wrapper">
+    <Modal show={true} onHide={this.props.handleHide} size="lg">
+    <div className="form-wrapper">
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Title">
           <Form.Label>Title</Form.Label>

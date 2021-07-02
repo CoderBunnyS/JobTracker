@@ -3,6 +3,7 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
 import { withAuth0 } from "@auth0/auth0-react";
+import CreateModal from "./createModal";
 // const { user, isAuthenticated, isLoading } = useAuth0();
 
 
@@ -28,6 +29,7 @@ class Dashboard extends Component {
           {
             isAuthenticated ?
               <>
+
               <h1>Welcome, {user.name.split('@')[0]}</h1>
               <h2>Track jobs today!</h2>
               </> :
