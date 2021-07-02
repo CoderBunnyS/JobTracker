@@ -11,9 +11,7 @@ require('dotenv').config()
 //   const pieces = url.split('/')
 //   return pieces[pieces.length-1]
 // }
-function handleUpdate() {
-    
-}
+
 
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
 var mongoURI = 'http://localhost:4000/jobs/job'
