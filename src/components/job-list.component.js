@@ -9,9 +9,13 @@ import createJobComponent from "./create-job.component";
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
 const serverRoute = "http://localhost:4000/jobs/jobs"
 
-const Modal = () => {
+const Modal = ({ location }) => {
+  const { state = {} } = location;
+  const { modal } = state;
+
   return(
-    <div>
+    <div className={modal ? "modal" : undefined }>
+    {modal && <Link to="/job-list">Close</Link>}
     <createJobComponent />
     </div>
   )
@@ -66,11 +70,14 @@ class JobList extends Component {
           <h1>Jobs</h1>
           <div className = "links">
             <Link to="/job-list" className = "link">Your Jobs</Link>
-            <Link to="/create-job" className="link">Create Job</Link>
+            <Link to={{
+              pathname: "/create-job",
+              state: { modal: true }
+              }} className="link">Create Job</Link>
           </div>
           <div>
             <Switch>
-              <Route path = "/job-list" exact component={JobList} />
+              <Route path = "/job-list" component={JobList} />
               <Route path = "/create-job" component = {Modal} />
             </Switch>
           </div>
