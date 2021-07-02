@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
@@ -30,17 +30,21 @@ export default class JobTableRow extends Component {
 
     render() {
         return (
+            <div>
+            <Link>Create Job</Link>
             <tr>
                 <td>{this.props.obj.title}</td>
                 <td>{this.props.obj.company}</td>
                 <td>{this.props.obj.appliedDate}</td>
                 <td>
+
                     <Link className="edit-link" to={"/edit-job/" + this.props.obj._id}>
                         Edit
                     </Link>
                     <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button>
                 </td>
             </tr>
+            </div>
         );
     }
 }
