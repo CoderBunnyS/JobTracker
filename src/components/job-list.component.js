@@ -4,7 +4,7 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import JobTableRow from './JobTableRow';
 import { withAuth0 } from '@auth0/auth0-react';
-import { Switch, Route, Link } from "react-router-dom"
+//import { Switch, Route, Link } from "react-router-dom"
 import createJobComponent from "./create-job.component";
 
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
@@ -47,7 +47,7 @@ class JobList extends Component {
           axios.get(route)
 
           .then(res => {
-            console.log(res)
+            console.log(res.data)
               this.setState({
                 jobs: res.data,
               })
@@ -68,26 +68,7 @@ class JobList extends Component {
     }
     render() {
         return (<div className="table-wrapper">
-<<<<<<< HEAD
-          <h1>Jobs</h1>
-          <div className = "links">
-            <Link to="/job-list" className = "link">Your Jobs</Link>
-            <Link to={{
-              pathname: "/create-job",
-              state: { modal: true }
-              }} className="link">Create Job</Link>
-          </div>
-          <div>
-            <Switch>
-              <Route path = "/job-list" component={JobList} />
-              <Route path = "/create-job" component = {Modal} />
-            </Switch>
-          </div>
-          <h2>Keep track of the jobs you are applying to</h2>
-
-=======
           <Link to="/create-job">Create Job</Link>
->>>>>>> 0f069c6d971809809f042e02aa5be6843cee5a0e
           <Table striped bordered hover>
             <thead>
               <tr>
