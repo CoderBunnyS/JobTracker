@@ -18,10 +18,20 @@ input{
 }
 
 .form-wrapper {
-  width: 70%;
+  display: flex;
+  border-radius: .2rem;
   margin: 0 auto;
   color: black !important;
   padding: 4rem 4rem;
+}
+.modal-content {
+  
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20%;
+  margin-top: 10rem;
+
 }
 
 .table-wrapper {
@@ -85,5 +95,32 @@ h1 {
   width: 100%;
   max-width: none;
   padding: 0 2rem;
+}
+.round {
+  margin: 10% 30%;
+  width: 9rem;
+
+}
+.form-group {
+  width: 195%;
+
+  margin-left: -1rem;
+}
+.form-label {
+  margin: 0 30%;
+  align-items: center;
+  width: fit-content;
+}
+.form-control {
+  margin: 1rem -1rem;
+  width: 60%;
+}
+#createSubmit {
+  margin: 1rem 3rem;
+}
+form {
+  margin-right: 1‒;
+  margin-right: 250px;
+
 }
 

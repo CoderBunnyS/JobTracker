@@ -68,22 +68,22 @@ onSubmit(e) {
     <Modal show={true} onHide={this.props.handleHide} size="lg">
     <div className="form-wrapper">
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control type="text" value={this.state.title} onChange={this.onChangeJobTitle}/>
-        </Form.Group>
+        
 
         <Form.Group controlId="Company">
-          <Form.Label>Company Name</Form.Label>
-          <Form.Control type="text" value={this.state.company} onChange={this.onChangeCompany}/>
+          {/* <Form.Label>Company Name</Form.Label> */}
+          <Form.Control placeholder="Company"type="text" value={this.state.company} onChange={this.onChangeCompany}/>
         </Form.Group>
-
+        <Form.Group controlId="Title">
+          {/* <Form.Label>Title</Form.Label> */}
+          <Form.Control placeholder= "Job Title" type="text" value={this.state.title} onChange={this.onChangeJobTitle}/>
+        </Form.Group>
         <Form.Group controlId="Applied">
-          <Form.Label>Date Applied</Form.Label>
-          <Form.Control type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate}/>
+          {/* <Form.Label>Date Applied</Form.Label> */}
+          <Form.Control placeholder= "Application Date" type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate}/>
         </Form.Group>
 
-        <Button variant="primary" size="lg" block="block" type="submit" className="round">
+        <Button variant="primary" size="lg" block="block" type="submit" id="createSubmit" className="round">
           Create Job
         </Button>
       </Form>
