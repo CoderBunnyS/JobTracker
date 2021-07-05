@@ -17,7 +17,7 @@ let JobSchema = new Schema({
     type: String
   },
   phase: {
-    type: String
+    type: String, default: 'wishlist'
   },
   category: [{
     type: Schema.Types.ObjectId, ref: 'Category' }],

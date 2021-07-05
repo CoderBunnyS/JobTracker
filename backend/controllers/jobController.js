@@ -109,6 +109,7 @@ exports.job_create_post = (req, res, next) => {
       appliedDate: req.body.appliedDate,
       category: req.body.category,
       username: req.body.username,
+      phase: req.body.phase,
      });
   job.save((err, val) => {
     if (err) {return next(err)}
