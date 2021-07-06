@@ -8,6 +8,9 @@ import LandingPage from "./components/LandingPage";
 
 import "./theme.scss";
 import "./App.css";
+
+import "./styles/landingPage.css"
+
 import "./supplement.css";
 
 
