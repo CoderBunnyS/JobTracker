@@ -8,7 +8,7 @@ import LandingPage from "./components/LandingPage";
 
 import "./theme.scss";
 import "./App.css";
-
+import "./styles/landingPage.css"
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -33,7 +33,7 @@ function App() {
 
   return (
   <Router>
-    <LandingPage />
+    {/* <LandingPage /> */}
     <div className="App">
       <BG />
       <header className="App-header">
