@@ -16,20 +16,21 @@ export default class BoardColumn extends React.Component {
   render() {
     return (
       <>
-      <Col xs={3}>
+      <Col >
         <h5>{this.props.phaseName || 'Phase'}</h5>
-        <div className="board-col">
+        <div className={"board-col " + this.props.phaseName.toLowerCase()}>
         {/* <CreateJobButton /> */}
 
         <CreateJobButton phaseName={this.props.phaseName} openCreateModal={this.props.openCreateModal} />
-        <Droppable droppableId={this.props.phaseName}>
+        <Droppable droppableId={this.props.phaseName} >
           {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} classname="no-pad">
+            <div ref={provided.innerRef} {...provided.droppableProps} classname="no-pad" style={{minHeight: '60vh'}}>
               {this.props.jobs.map((job, index) => (
                 <JobTableRow
                   obj={job}
                   key={job._id}
                   index={index}
+                  edit={() => this.props.edit(job._id, this.props.phaseName)}
 
                   // JL={this}
                   // edit = {() => this.openEditModal(i)}
