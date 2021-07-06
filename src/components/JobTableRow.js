@@ -4,12 +4,8 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { Draggable } from 'react-beautiful-dnd';
-
-const badRandom = () => Math.floor(Math.random() * 50000 % (Math.floor(Math.random() * 40000)));
-
-//var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
-
-
+import CompanyLogo from './CompanyLogo.js'
+import Icon from './icon.component.js'
 
 export default class JobTableRow extends Component {
     constructor(props) {
@@ -32,26 +28,36 @@ export default class JobTableRow extends Component {
     }
 
     render() {
-        console.log(this.props.index);
         return (
             <Draggable draggableId={this.props.obj._id} index={this.props.index}>
             {provided => (
-              <Container className="job-card"
+              <div className="job-card"
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               >
               {/* <Link>Create Job</Link> */}
-                  <p>{this.props.obj.title}</p>
-                  <p>{this.props.obj.company}</p>
-                  {/* <p>{this.props.obj.appliedDate}</p> */}
+                <div onClick={this.props.edit} className="expand">
+                  <Icon
+                    iconName="expand"
+                    // extraClass="expand"
+                  />
+                </div>
+
+                <div className="status-dot"></div>
+                <CompanyLogo companyName={this.props.obj.company.toLowerCase()}/>
+                <div>
+                  <p className="company">{this.props.obj.company}</p>
+                  <p className="position">{this.props.obj.title}</p>
+
+                </div>
                   <div>
-                      <Button className="edit-link" onClick={this.props.edit}>
+                      {/* <Button className="edit-link" onClick={this.props.edit}>
                           Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button>
+                      </Button> */}
+                      {/* <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button> */}
                   </div>
-              </Container>
+              </div>
             )}
             </Draggable>
 

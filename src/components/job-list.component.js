@@ -44,7 +44,7 @@ class JobList extends Component {
             showCreateModal: false,
             showEditModal: false,
             activeJob: {},
-            activeJobIndex: -1,
+            activeJobID: "none",
             activePhase: 'wishlist',
         };
     }
@@ -62,13 +62,14 @@ class JobList extends Component {
         showCreateModal: true
       })
     }
-    openEditModal(i){
-      console.log(this.state.jobs[i])
-      const myJob = this.state.jobs[i]
+    openEditModal(id, phaseName){
+
+      const myJob = this.state.jobs.all.find(x => x._id === id);
       this.setState({
         showEditModal: true,
         activeJob: myJob,
-        activeJobIndex: i
+        activeJobID: id,
+        activePhase: phaseName.toLowerCase(),
       })
     }
     closeCreateModal(){
@@ -97,10 +98,24 @@ class JobList extends Component {
     }
 
     EditOneJobFromList(jobObject) {
-      const updatedJobsArray = [...this.state.jobs];
-      updatedJobsArray[this.state.activeJobIndex] = jobObject
+      const id = jobObject._id;
+      const newAll = [...this.state.jobs.all];
+      newAll[this.state.jobs.all.findIndex(x => x._id === id)] = jobObject;
+
+      const newPhaseArray = [...this.state.jobs[this.state.activePhase]];
+      console.log(newPhaseArray)
+      newPhaseArray[this.state.jobs[this.state.activePhase].findIndex(x => x._id === id)] = jobObject;
+      console.log(newPhaseArray.length);
+
+
+      // const up = [...this.state.jobs];
+      // updatedJobsArray[this.state.activeJobIndex] = jobObject
       this.setState({
-        jobs: updatedJobsArray
+        jobs: {
+          ...this.state.jobs,
+          all: newAll,
+          [this.state.activePhase]: newPhaseArray,
+        }
       })
     }
 
@@ -126,6 +141,7 @@ class JobList extends Component {
       const newDestCol = [...this.state.jobs[destColName]]
 
       const movedItem = newSourceCol.splice(source.index, 1)[0];
+      movedItem.phase = destination.droppableId;
       console.log("smu", movedItem)
       console.log(newSourceCol)
 
@@ -133,6 +149,9 @@ class JobList extends Component {
         newSourceCol.splice(destination.index, 0, movedItem);
       } else {
         newDestCol.splice(destination.index, 0, movedItem);
+        console.log(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`);
+        // axios.post(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`, {phase: destination.droppableId})
+        //   .then(res => console.log(res))
       }
 
 
@@ -230,7 +249,7 @@ class JobList extends Component {
 
           {/* <Link to="/create-job">Create Job</Link> */}
           <h1>Jobs</h1>
-          <h2>keep track of the jobs your applying to</h2>
+          <h2>Keep track of your job applications</h2>
 
           { this.state.showCreateModal &&
             <CreateModal
@@ -245,12 +264,19 @@ class JobList extends Component {
               Data = {this.state.activeJob}
               handleHide={this.closeEditModal}
               handleUpdate = {this.EditOneJobFromList}
+              phase={this.state.activePhase}
             />
           }
           <Row>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal}/>
-            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}/>
+            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal} edit={this.openEditModal}/>
+            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+            <BoardColumn phaseName="Interview" jobs={this.state.jobs['interview']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+            <BoardColumn phaseName="Offers" jobs={this.state.jobs['offers']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+            <BoardColumn phaseName="Archive" jobs={this.state.jobs['archive']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+
+
+
 
 
           </DragDropContext>

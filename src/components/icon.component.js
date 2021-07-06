@@ -1,9 +1,9 @@
-export default function Icon({iconName, size}) {
+export default function Icon({iconName, size, extraClass}) {
   return (
     <>
       <img
         src={`/icons/${iconName}.png`}
-        className={`inlineIcon ${size}`}
+        className={`inlineIcon ${size} ${extraClass}`}
       />
     </>
   )
