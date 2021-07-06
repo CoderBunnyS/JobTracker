@@ -144,6 +144,7 @@ form {
   margin-right: 250px;
 
 }
+
 .no-pad{
   /* margin: 0 !important; */
   /* padding: 0 !important; */
@@ -155,3 +156,9 @@ form {
   border: none !important;
   width: 100%;
 }
+
+.sign-in-para {
+  margin: 0 0 0 50rem;
+}
+
+
