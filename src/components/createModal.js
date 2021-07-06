@@ -15,6 +15,7 @@ class CreateModal extends Component {
 
     constructor(props){
         super(props)
+        console.log(this.props.phase)
 
     //setting functions
     this.onChangeJobTitle = this.onChangeJobTitle.bind(this);
@@ -26,7 +27,8 @@ class CreateModal extends Component {
     this.state = {
         title:'',
         company:'',
-        appliedDate:''
+        appliedDate:'',
+        phase: '',
     }
 }
 
@@ -48,17 +50,21 @@ onSubmit(e) {
           title: this.state.title,
           company: this.state.company,
           appliedDate: this.state.appliedDate,
-          username: user.name
+          username: user.name,
+          phase: this.props.phase,
       };
       console.log(jobObject)
       axios.post(mongoURI, jobObject)
-      .then(res => console.log(res.data));
+      .then(res => {
+        this.setState({title:'', company:'', appliedDate:''})
+        this.props.handleNew(res.data.job)
+        this.props.handleHide()
+        console.log(res.data)
+      });
 
-      this.setState({title:'', company:'', appliedDate:''})
-      this.props.handleNew(jobObject)
-      this.props.handleHide()
-    
-      
+
+
+
     }
 
 }
@@ -68,7 +74,7 @@ onSubmit(e) {
     <Modal show={true} onHide={this.props.handleHide} size="lg">
     <div className="form-wrapper">
       <Form onSubmit={this.onSubmit}>
-        
+
 
         <Form.Group controlId="Company">
           {/* <Form.Label>Company Name</Form.Label> */}

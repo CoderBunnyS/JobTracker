@@ -25,7 +25,8 @@ class CreateJob extends Component {
     this.state = {
         title:'',
         company:'',
-        appliedDate:''
+        appliedDate:'',
+        phase: ''
     }
 }
 
@@ -47,7 +48,8 @@ onSubmit(e) {
           title: this.state.title,
           company: this.state.company,
           appliedDate: this.state.appliedDate,
-          username: user.name
+          username: user.name,
+          phase: this.props.phase,
       };
       console.log(jobObject)
       axios.post(mongoURI, jobObject)

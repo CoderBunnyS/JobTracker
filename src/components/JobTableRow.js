@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import { Draggable } from 'react-beautiful-dnd';
 
+const badRandom = () => Math.floor(Math.random() * 50000 % (Math.floor(Math.random() * 40000)));
 
 //var mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites"
 
@@ -29,22 +32,29 @@ export default class JobTableRow extends Component {
     }
 
     render() {
+        console.log(this.props.index);
         return (
-            <div>
-            {/* <Link>Create Job</Link> */}
-            <tr>
-                <td>{this.props.obj.title}</td>
-                <td>{this.props.obj.company}</td>
-                <td>{this.props.obj.appliedDate}</td>
-                <td>
+            <Draggable draggableId={this.props.obj._id} index={this.props.index}>
+            {provided => (
+              <Container className="job-card"
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              >
+              {/* <Link>Create Job</Link> */}
+                  <p>{this.props.obj.title}</p>
+                  <p>{this.props.obj.company}</p>
+                  {/* <p>{this.props.obj.appliedDate}</p> */}
+                  <div>
+                      <Button className="edit-link" onClick={this.props.edit}>
+                          Edit
+                      </Button>
+                      <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button>
+                  </div>
+              </Container>
+            )}
+            </Draggable>
 
-                    <Button className="edit-link" onClick={this.props.edit}>
-                        Edit
-                    </Button>
-                    <Button size="sm" variant="danger" onClick={this.deleteJob}>Delete</Button>
-                </td>
-            </tr>
-            </div>
         );
     }
 }

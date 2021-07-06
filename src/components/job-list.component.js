@@ -8,10 +8,24 @@ import { withAuth0 } from '@auth0/auth0-react';
 import createJobComponent from "./create-job.component";
 import CreateModal from "./createModal";
 import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/Row"
+import Container from "react-bootstrap/Container"
+
 import EditModal from "./editModal"
+import {DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import Card from 'react-bootstrap/Card'
+import BoardColumn from './BoardColumn.js'
+import { resetServerContext } from "react-beautiful-dnd"
+
+
+
+
+resetServerContext()
+
 
 //const mongoURI = "mongodb+srv://TrackerAdmin:TrackerAdminPassword@TrackerDatabase.euzmb.mongodb.net/TrackerDatabase?retryWrites=true&w=majority"
 const serverRoute = "http://localhost:4000/jobs/jobs"
+
 
 
 class JobList extends Component {
@@ -23,13 +37,15 @@ class JobList extends Component {
         this.openEditModal = this.openEditModal.bind(this);
         this.closeEditModal = this.closeEditModal.bind(this);
         this.EditOneJobFromList = this.EditOneJobFromList.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
 
         this.state = {
-            jobs: [],
+            jobs: {'wishlist': [], 'applied': [], 'interview': [], 'offers': [], 'archive': [], 'all': []},
             showCreateModal: false,
             showEditModal: false,
             activeJob: {},
-            activeJobIndex: -1
+            activeJobIndex: -1,
+            activePhase: 'wishlist',
         };
     }
 
@@ -40,10 +56,9 @@ class JobList extends Component {
         jobs: newJobs
       })
     }
-    openCreateModal(){
-      console.log("this is working")
-      console.log(this.state.showCreateModal)
+    openCreateModal(phaseName){
       this.setState({
+        activePhase: phaseName.toLowerCase(),
         showCreateModal: true
       })
     }
@@ -56,7 +71,7 @@ class JobList extends Component {
         activeJobIndex: i
       })
     }
-    closeCreateModal(){  
+    closeCreateModal(){
       console.log(this.state.showCreateModal)
       this.setState({
         showCreateModal: false
@@ -69,12 +84,18 @@ class JobList extends Component {
     }
 
     AddNewJobToList(jobObject) {
-      const updatedJobsArray = [...this.state.jobs];
+      console.log(this.state.activePhase)
+      const jobsArr = this.state.jobs[this.state.activePhase];
+      const updatedJobsArray = [...jobsArr];
       updatedJobsArray.push(jobObject)
       this.setState({
-        jobs: updatedJobsArray
+        jobs: {
+          ...this.state.jobs,
+          [this.state.activePhase]: updatedJobsArray
+        }
       })
     }
+
     EditOneJobFromList(jobObject) {
       const updatedJobsArray = [...this.state.jobs];
       updatedJobsArray[this.state.activeJobIndex] = jobObject
@@ -83,9 +104,76 @@ class JobList extends Component {
       })
     }
 
+    onDragEnd = result => {
+      const { destination, source, draggableId } = result;
+
+      if (!destination) {
+        return;
+      }
+
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return;
+      }
+
+      console.log(destination, source, draggableId)
+      const srcColName = source.droppableId.toLowerCase();
+      const destColName = destination.droppableId.toLowerCase();
+
+      const newSourceCol = [...this.state.jobs[srcColName]]
+      const newDestCol = [...this.state.jobs[destColName]]
+
+      const movedItem = newSourceCol.splice(source.index, 1)[0];
+      console.log("smu", movedItem)
+      console.log(newSourceCol)
+
+      if (srcColName === destColName) {
+        newSourceCol.splice(destination.index, 0, movedItem);
+      } else {
+        newDestCol.splice(destination.index, 0, movedItem);
+      }
+
+
+      const newJobsObj = {
+        ...this.state.jobs,
+        [srcColName]: newSourceCol,
+      }
+
+      if (srcColName !== destColName) newJobsObj[destColName] = newDestCol
+
+      console.log(newJobsObj)
+
+      this.setState({
+        jobs: newJobsObj,
+      })
+
+      // const column = this.state.columns[source.droppableId];
+      // const newTaskIds = Array.from(column.taskIds);
+      // newTaskIds.splice(source.index, 1);
+      // newTaskIds.splice(destination.index, 0, draggableId);
+      //
+      // const newColumn = {
+      //   ...column,
+      //   taskIds: newTaskIds,
+      // };
+      //
+      // const newState = {
+      //   ...this.state,
+      //   columns: {
+      //     ...this.state.columns,
+      //     [newColumn.id]: newColumn,
+      //   },
+      // };
+      //
+      // this.setState(newState);
+    }
+
     componentDidMount() {
         const { isAuthenticated, user } = this.props.auth0;
         console.log(user)
+
         if (isAuthenticated) {
           const route = process.env.REACT_APP_BACKEND_URL + `jobs/jobs/byuser/${user.name}`
 
@@ -94,10 +182,11 @@ class JobList extends Component {
           .then(res => {
             console.log(res.data)
               this.setState({
-                jobs: res.data,
+                jobs: this.parseJobs(res.data),
               })
+              console.log(this.state.jobs)
           })
-          
+
           .catch((error) => {
               //console.log(error.response.data)
               console.log(error + " axios error");
@@ -106,41 +195,66 @@ class JobList extends Component {
         }
     }
 
+
+    parseJobs = jobs => {
+      return {
+        all: jobs,
+        wishlist: jobs.filter(x => x.phase === 'undefined' || x.phase.toLowerCase() === "wishlist"),
+        applied: jobs.filter(x => x.phase.toLowerCase() === "applied"),
+        interview: jobs.filter(x => x.phase.toLowerCase() === "interview"),
+        offers: jobs.filter(x => x.phase.toLowerCase() === "offers"),
+        archive: jobs.filter(x => x.phase.toLowerCase() === "archive"),
+      }
+    }
+
     DataTable(){
-        return this.state.jobs.map((res, i) => {
-            return <JobTableRow obj={res} key={i} JL={this} 
-            edit = {() => this.openEditModal(i)} remove={() => this.deleteItem(i)} />;
-        })
+        return (
+          <>
+            {this.state.jobs.map((res, i) => (
+              <JobTableRow
+                obj={res}
+                key={i}
+                JL={this}
+                edit = {() => this.openEditModal(i)}
+                remove={() => this.deleteItem(i)}
+              />
+            ))
+            }
+        </>
+      )
     }
     render() {
-        console.log(this.state.showCreateModal)
+        // console.log(this.state.jobs)
+
         return (<div className="table-wrapper">
+
           {/* <Link to="/create-job">Create Job</Link> */}
-          <Button onClick = {this.openCreateModal}>Create Job</Button>
-          {
-            this.state.showCreateModal && 
-            <CreateModal 
+          <h1>Jobs</h1>
+          <h2>keep track of the jobs your applying to</h2>
+
+          { this.state.showCreateModal &&
+            <CreateModal
               handleNew = {this.AddNewJobToList}
-              handleHide={this.closeCreateModal}    
-          />}
-          {this.state.showEditModal && <EditModal 
-          Data = {this.state.activeJob} 
-          handleHide={this.closeEditModal}
-          handleUpdate = {this.EditOneJobFromList}  
-          />}
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Company Name</th>
-                <th>Date Applied</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.DataTable()}
-            </tbody>
-          </Table>
+              handleHide={this.closeCreateModal}
+              phase={this.state.activePhase}
+            />
+          }
+
+          { this.state.showEditModal &&
+            <EditModal
+              Data = {this.state.activeJob}
+              handleHide={this.closeEditModal}
+              handleUpdate = {this.EditOneJobFromList}
+            />
+          }
+          <Row>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal}/>
+            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}/>
+
+
+          </DragDropContext>
+        </Row>
         </div>);
       }
     }
