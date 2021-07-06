@@ -67,6 +67,36 @@ function LandingPage() {
             <img src="" alt="screenshot"></img>
         </div>
     </div>
+    <div className="testimonialSection">
+        <h2 className="testimonialHeader">See What Other People Say</h2>
+    <div className="testimonials">
+    <div className="testimonial1">
+        <img src="" alt="userPicture" className="testPhoto" /><p>“Artemis has helped me to see the huge amount of progress I’ve made over time, which is really helpful especially on days when I get discouraged.”<br>
+        </br>
+        Brittany, 30
+        </p>
+        </div>
+        <div className="testimonial2">
+       
+        <img src="" alt="userPicture" />
+        <p>“I love that Artemis values my well-being as much as my goals. It has been a great reminder that I am a person before I am a job seeker.”<br>
+        </br>
+        Mark, 25
+        </p>
+        </div>
+        <div className="testimonial3">
+        <img src="" alt="userPicture" />
+        <p>“I have been able to feel much more confident in my ability to find a job thanks to the help of Artemis’ pro tips and progress visualization feature. 10/10 recommend.”<br>
+        </br>
+        Phillip, 34
+        </p>
+        </div>
+    </div>
+    </div>
+    <div className="actionCall">
+        <h1>Join the other 344,439 people accomplishing their goals!</h1>
+        <button className="signUp">Sign Up</button>
+    </div>
     </div>
 }
 

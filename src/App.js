@@ -35,9 +35,10 @@ function App() {
 
   return (
   <Router>
-    <LandingPage />
-    <div className="App">
-      <BG />
+  {/* isAuthenticated &&  */}
+    {/* <LandingPage /> */}
+    <div className={`App ${isAuthenticated? "" : 'landingPage'}`}>
+      {isAuthenticated && <BG />}
       <header className="App-header">
         <Navbar bg="dark" variant="dark">
           <Container>
@@ -80,7 +81,7 @@ function App() {
           <Col md={12}>
             <div className="wrapper">
               <Switch>
-                <Route exact path='/' component={Dashboard}/>
+                <Route exact path='/' component={isAuthenticated? Dashboard : LandingPage}/>
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/edit-job/:id" component={EditJob} />
                 <Route path="/job-list" component={JobList} />
