@@ -11,7 +11,7 @@ let JobSchema = new Schema({
     type: String, required: true, maxLength: 100
   },
   appliedDate: {
-    type: String, required: true
+    type: String, required: false
   },
   username: {
     type: String

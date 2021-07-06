@@ -255,6 +255,15 @@ exports.job_update_get = function(req, res, next) {
 
 };
 
+exports.job_switch_phase = (req, res) => {
+  const update = {
+    phase: req.body.phase
+  }
+  Job.findByIdAndUpdate(req.params.id, update, (err, obj) => {
+    if (err) { return next(err) }
+    res.status(200).json({msg: `phase set to ${res.body.phase}`})
+  })
+}
 
 // Handle job update on POST.
 exports.job_update_post = [
@@ -274,7 +283,7 @@ exports.job_update_post = [
     body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
     //body('user', 'User must not be empty.').trim().isLength({ min: 1 }).escape(),
     body('company', 'CompanyName must not be empty.').trim().isLength({ min: 1 }).escape(),
-    body('appliedDate', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
+    // body('appliedDate', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
     body('category.*').escape(),
 
     // Process request after validation and sanitization.
@@ -288,6 +297,7 @@ exports.job_update_post = [
           { title: req.body.title,
             company: req.body.company,
             user: req.body.user,
+            phase: req.body.phase,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
             category: (typeof req.body.category==='undefined') ? [] : req.body.category,
@@ -314,7 +324,7 @@ exports.job_update_post = [
                         results.categories[i].checked='true';
                     }
                 }
-                res.json({ title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
+                res.status(200).json({ title: 'Update Job',users:results.users, categories:results.categories, job: job, errors: errors.array() });
             });
             return;
         }
