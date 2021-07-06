@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Icon from '../components/icon.component'
 import LoginButton from '../components/partials/LoginButton';
 import "../styles/landingPage.css"
-import screenShot from "../styles/LP.svg"
+
 
 
 function LandingPage() {
@@ -40,7 +40,7 @@ function LandingPage() {
 
           </div>
           <div className="searchImage">
-            <img src="../styles/LP.svg" alt="Artemis Screenshot" className="image"></img>
+            <img src="/images/landingPage.png" alt="Artemis Screenshot" className="image"></img>
           </div>
 
           </div>
