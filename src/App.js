@@ -35,7 +35,7 @@ function App() {
 
   return (
   <Router>
-    {/* <LandingPage /> */}
+    <LandingPage />
     <div className="App">
       <BG />
       <header className="App-header">
