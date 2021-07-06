@@ -32,6 +32,7 @@ export default class JobTableRow extends Component {
     }
 
     render() {
+        console.log(this.props.index);
         return (
             <Draggable draggableId={this.props.obj._id} index={this.props.index}>
             {provided => (

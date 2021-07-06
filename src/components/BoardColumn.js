@@ -28,7 +28,7 @@ export default class BoardColumn extends React.Component {
               {this.props.jobs.map((job, index) => (
                 <JobTableRow
                   obj={job}
-                  key={index}
+                  key={job._id}
                   index={index}
 
                   // JL={this}
