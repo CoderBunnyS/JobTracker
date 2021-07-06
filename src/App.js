@@ -8,7 +8,12 @@ import LandingPage from "./components/LandingPage";
 
 import "./theme.scss";
 import "./App.css";
+
 import "./styles/landingPage.css"
+
+import "./supplement.css";
+
+
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -56,17 +61,17 @@ function App() {
             <Nav className="justify-content-end">
               {
                 isAuthenticated &&
-                <Link to={"/create-job"} className="nav-link">
-                  Create Job
+                <>
+                <Link to={"/job-list"} className="nav-link">
+                  Jobs
                 </Link>
+                <Link to={"/profile"} className="nav-link">
+                  Profile
+                </Link>
+                </>
               }
 
-              <Link to={"/job-list"} className="nav-link">
-                Jobs
-              </Link>
-              <Link to={"/profile"} className="nav-link">
-                Profile
-              </Link>
+
               <LoginButton />
             </Nav>
 

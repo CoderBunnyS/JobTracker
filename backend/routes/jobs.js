@@ -39,6 +39,9 @@ router.get('/jobs', job_controller.job_list);
 // GET request for list of all Job items.
 router.get('/jobs/byuser/:username', job_controller.job_list_by_user);
 
+router.post('/jobs/:id/phase', job_controller.job_switch_phase);
+
+
 /// USER ROUTES ///
 
 // GET request for creating User. NOTE This must come before route for id (i.e. display user).

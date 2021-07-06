@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import JobTableRow from './JobTableRow';
 import { withAuth0 } from "@auth0/auth0-react";
 import CreateModal from "./createModal";
@@ -32,8 +33,13 @@ class Dashboard extends Component {
 
               <h1>Welcome, {user.name.split('@')[0]}</h1>
               <h2>Track jobs today!</h2>
+
               </> :
-            <h1>y</h1>
+              <>
+                <h1>Welcome to Artemis</h1>
+                <h2>Sign in to start your hunt!</h2>
+
+              </>
           }
         </>
       )

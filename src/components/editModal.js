@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Modal from "react-bootstrap/Modal"
+import JobHeader from './JobHeader.js'
+import Icon from './icon.component.js'
 require('dotenv').config()
 
 
@@ -71,20 +73,17 @@ export default class EditJob extends Component {
       title: this.state.title,
       company: this.state.company,
       appliedDate: this.state.appliedDate,
+      phase: this.props.phase,
     };
 
-    console.log(`${mongoURI}/${this.props.Data._id}/update`)
-    console.log(jobObject)
-    //console.log(`${mongoURI}/${getID()}/update`)
     axios.post(`${mongoURI}/${this.props.Data._id}/update`, jobObject)
       .then((res) => {
-        console.log(res)
+        console.log('RES:', res)
         console.log('Job successfully updated')
-        //window.location.reload(false);
-        // this.componentDidMount()
+
         this.setState({title:'', company:'', appliedDate:''})
-      this.props.handleUpdate(jobObject)
-      this.props.handleHide()
+        this.props.handleUpdate(res.data.job)
+        this.props.handleHide()
       }).catch((error) => {
         console.log(error)
       })
@@ -96,27 +95,35 @@ export default class EditJob extends Component {
 
 
   render() {
+    console.log(this.props.phase)
     return (
     <Modal show={true} onHide={this.props.handleHide} size="lg">
     <div className="form-wrapper">
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control type="text" value={this.state.title} onChange={this.onChangeJobTitle} />
-        </Form.Group>
+      <div className="close-modal" onClick={this.props.handleHide}><Icon iconName="ex" size="sm"/></div>
 
+        <JobHeader company={this.state.company} title={this.state.title}/>
         <Form.Group controlId="Company">
           <Form.Label>Company</Form.Label>
           <Form.Control type="text" value={this.state.company} onChange={this.onChangeCompany} />
         </Form.Group>
+
+        <Form.Group controlId="Title">
+          <Form.Label>Job Title</Form.Label>
+          <Form.Control type="text" value={this.state.title} onChange={this.onChangeJobTitle} />
+        </Form.Group>
+
 
         <Form.Group controlId="appliedDate">
           <Form.Label>Date Applied</Form.Label>
           <Form.Control type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate} />
         </Form.Group>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
-          Update Job
+        <Button variant="primary" size="med" block="block" type="submit" className="">
+          Update
+        </Button>
+        <Button variant="outline-danger" size="med" block="block" type="" className="">
+          Delete
         </Button>
       </Form>
     </div>
