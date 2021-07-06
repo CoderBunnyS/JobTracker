@@ -54,6 +54,9 @@ function LandingPage() {
               </div>
           </div>
       </div>
+    <div className="features">
+        
+    </div>
     </div>
 }
 
