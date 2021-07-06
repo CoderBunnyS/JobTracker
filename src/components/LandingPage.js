@@ -55,7 +55,17 @@ function LandingPage() {
           </div>
       </div>
     <div className="features">
-        
+        <h2 id="featuresHeading">Features</h2><br></br>
+        <div className="row">
+            <img src="" alt="screenshot"></img>
+            <img src="" alt="screenshot"></img>
+            <img src="" alt="screenshot"></img>
+        </div>
+        <div className="row">
+        <img src="" alt="screenshot"></img>
+            <img src="" alt="screenshot"></img>
+            <img src="" alt="screenshot"></img>
+        </div>
     </div>
     </div>
 }
