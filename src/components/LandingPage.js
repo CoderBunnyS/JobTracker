@@ -46,7 +46,7 @@ function LandingPage() {
           </div>
           <div className="LPSection">
               <div className="searchImage">
-              <img src="/images/situp.png" alt="woman sitting up" className="LPimage"></img>
+              <img src="/images/situp.png" alt="woman sitting up" className="LPimage2"></img>
               </div>
               <div className="LPPara">
                   <h1>Build resilience with well-being tracking and tips.</h1>
