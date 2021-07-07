@@ -257,12 +257,13 @@ exports.job_update_get = function(req, res, next) {
 };
 
 exports.job_switch_phase = (req, res) => {
+  console.log(req.body)
   const update = {
     phase: req.body.phase
   }
   Job.findByIdAndUpdate(req.params.id, update, (err, obj) => {
     if (err) { return next(err) }
-    res.status(200).json({msg: `phase set to ${res.body.phase}`})
+    res.status(200).json({msg: `phase set to ${req.body.phase}`})
   })
 }
 

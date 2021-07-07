@@ -52,6 +52,7 @@ class JobList extends Component {
     deleteItem(id){
       const newAll = [...this.state.jobs.all].filter(x => x._id !== id);
       const newColArray = [...this.state.jobs[this.state.activePhase]].filter(x => x._id !== id);
+      newColArray = newColArray.filter(x => x._id !== id);
       this.setState({
         jobs: {
           ...this.state.jobs,
@@ -154,8 +155,8 @@ class JobList extends Component {
       } else {
         newDestCol.splice(destination.index, 0, movedItem);
         console.log(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`);
-        // axios.post(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`, {phase: destination.droppableId})
-        //   .then(res => console.log(res))
+        axios.post(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`, {phase: destination.droppableId})
+          .then(res => console.log(res))
       }
 
 
