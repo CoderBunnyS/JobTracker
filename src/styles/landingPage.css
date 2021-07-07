@@ -18,7 +18,7 @@
     background-color: #51CD86;
     border-radius: 40px;
     width: 8rem;
-    margin: 5% 0% 0% 45%;
+    margin: 5% 0% 10% 45%;
     border: none;
     
 }
@@ -29,16 +29,20 @@
   .LPPara {
       width: 30%;
  
-      margin: 5rem 0rem 2rem 5rem;
+      margin: 5rem 0rem 2rem 9rem;
   }
   /* .searchImage {
       width: 40%;
       display: flex;
   } */
   .LPimage {
-      margin-left: 20%;
+      margin-left: 40%;
 
   } 
+  .LPimage2{
+      margin-left: 8rem;
+      margin-right: 5rem;
+  }
   /* .trackingSection {
       display: flex;
   } */
