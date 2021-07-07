@@ -36,7 +36,7 @@ function LandingPage() {
           <div className="LPPara">
           <h1>Your job search just got a lot more organized.</h1>
           <p>Artemis’ job search tracking tool helps you track your job search stages, your networking contacts, and your progress while providing you with the tips and encouragement to meet your goals.</p>
-          <LoginButton className="landingSignIn"/>
+          <button id="landingSignIn"><LoginButton /></button>
 
           </div>
           <div className="searchImage">
@@ -55,46 +55,47 @@ function LandingPage() {
           </div>
       </div>
     <div className="features">
-        <h2 id="featuresHeading">Features</h2><br></br>
+        <h2 class="LPHeading">Features</h2><br></br>
         <div className="featureRow">
-            <img src="" alt="screenshot"></img>
-            <img src="" alt="screenshot"></img>
-            <img src="" alt="screenshot"></img>
+            <p className="featureImgText"><img src="/images/featureImg1.png" alt="screenshot"></img><br />Track each stage of the job process</p>
+            <p className="featureImgText"><img src="/images/featureImg2.png" alt="screenshot"></img><br />Progress Tracking</p>
+            <p className="featureImgText"><img src="/images/featureImg3.png" alt="screenshot"></img><br />Daily Reminders</p>
         </div>
         <div className="featureRow">
-        <img src="" alt="screenshot"></img>
-            <img src="" alt="screenshot"></img>
-            <img src="" alt="screenshot"></img>
+        <p className="featureImgText"><img src="/images/featureImg4.png" alt="screenshot"></img><br />Daily inspiration</p>
+        <p className="featureImgText"><img src="/images/featureImg5.png" alt="screenshot"></img><br />Well-being tips and reminders</p>
+        <p className="featureImgText"><img src="/images/featureImg6.png" alt="screenshot"></img><br />Track your weekly goals</p>
         </div>
     </div>
     <div className="testimonialSection">
-        <h2 className="testimonialHeader">See What Other People Say</h2>
+    <h2 className="LPHeading">See What Other People Say</h2>
     <div className="testimonials">
-    <div className="testimonial1">
-        <img src="" alt="userPicture" className="testPhoto" /><p>“Artemis has helped me to see the huge amount of progress I’ve made over time, which is really helpful especially on days when I get discouraged.”<br>
+    <div className="testimonialBlurb" id="test1">
+        <img src="/images/testImg1.png" alt="userPicture" className="testPhoto" />
+        <p className="testPara">“Artemis has helped me to see the huge amount of progress I’ve made over time, which is really helpful especially on days when I get discouraged.”<br>
         </br>
         Brittany, 30
         </p>
         </div>
-        <div className="testimonial2">
+        <div className="testimonialBlurb" id="test2">
        
-        <img src="" alt="userPicture" />
-        <p>“I love that Artemis values my well-being as much as my goals. It has been a great reminder that I am a person before I am a job seeker.”<br>
+        <img src="/images/testImg2.png" alt="userPicture" />
+        <p className="testPara">“I love that Artemis values my well-being as much as my goals. It has been a great reminder that I am a person before I am a job seeker.”<br>
         </br>
         Mark, 25
         </p>
         </div>
-        <div className="testimonial3">
-        <img src="" alt="userPicture" />
-        <p>“I have been able to feel much more confident in my ability to find a job thanks to the help of Artemis’ pro tips and progress visualization feature. 10/10 recommend.”<br>
+        <div className="testimonialBlurb" id="test3">
+        <img src="/images/testImg3.png" alt="userPicture" />
+        <p className="testPara">“I have been able to feel much more confident in my ability to find a job thanks to the help of Artemis’ pro tips and progress visualization feature. 10/10 recommend.”<br>
         </br>
         Phillip, 34
         </p>
         </div>
     </div>
     </div>
-    <div className="actionCall">
-        <h1>Join the other 344,439 people accomplishing their goals!</h1>
+    <div >
+        <h1 className="actionCall">Join the other 344,439 people accomplishing their goals!</h1>
         <button className="signUp">Sign Up</button>
     </div>
     </div>

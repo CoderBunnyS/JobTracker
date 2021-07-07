@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap');
+
 .landingPage {
-    background-color: #E5E5E5;
+    background-color: white;
     margin-top: 0px;
     color: #000000;
+    font-family: 'Montserrat', sans-serif;
+}
+#landingSignIn {
+    background-color: #51CD86;
+    border-radius: 40px;
+    width: 8rem;
+    margin: 10% 0% 0% 25%;
+    border: none;
+    
 }
 /* .landingSignIn {
     position: absolute;
@@ -19,9 +30,9 @@ top: 793px;
       margin: 7% 0 12% 0;
   }
   .LPPara {
-      width: 40%;
-      margin-right: 5rem;
-      margin-left: 2rem;
+      width: 30%;
+ 
+      margin: 5rem 0rem 2rem 5rem;
   }
   /* .searchImage {
       width: 40%;
@@ -45,9 +56,13 @@ top: 793px;
       /* display: flex; */
       /* margin: 10rem 0 0 0; */
   }
-  #featuresHeading {
+  .LPHeading {
     text-align: center;
-    
+    font-weight: 700;
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 54px;
+    margin-top: 7rem;
 
   }
   .featureRow {
@@ -57,9 +72,69 @@ top: 793px;
       column-count: 3;
       column-gap: 40px;
       width: 100%;
-      border: 1px solid purple;
+    flex-grow: 1;
   }
   .landingPage img {
-    
+        margin-bottom: 1rem;
       justify-content: space-between;
+  }
+  .featureImgText {
+      margin: auto;
+      
+      align-items: flex-start;
+      justify-content: space-around;
+      margin-top: 5rem;
+      text-align: center;
+  }
+  .testimonialBlurb {
+    display: flex;
+    column-count: 2;
+    column-gap: 40px;
+    width: 80%;
+    margin: 5rem auto 5rem auto;
+    font-family:  'Montserrat', sans-serif;
+  }
+  .testPara {
+    width: 75%;
+    height: 125px;
+    left: 356px;
+    top: 3308px;
+    
+    /* body */
+    
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    /* or 156% */
+    
+    display: flex;
+    align-items: center;
+    
+    color: rgba(0, 0, 0, 0.63);
+  }
+  .testPhoto {
+    border-radius: 10px;
+  }
+  #test1 {
+      margin-right: 12rem;
+  }
+  #test3 {
+      margin-right: 12rem;
+  }
+  #test2 {
+      margin-left: 12rem;
+  }
+  .actionCall {
+  
+    width: 70%;
+   margin: auto;
+   font-family:  'Montserrat', sans-serif;
+    
+    display: block;
+    align-items: center;
+    text-align: center;
+    
+    color: #000000;
   }
