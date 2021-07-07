@@ -14,17 +14,14 @@
     border: none;
     
 }
-/* .landingSignIn {
-    position: absolute;
-width: 215px;
-height: 44px;
-left: 250px;
-top: 793px;
-} */
-/* .sign-in-para {
-    margin: 0 0 0 30rem;
-    width: 80%;
-  } */
+.signUp{
+    background-color: #51CD86;
+    border-radius: 40px;
+    width: 8rem;
+    margin: 5% 0% 0% 45%;
+    border: none;
+    
+}
   .LPSection {
       display: flex;
       margin: 7% 0 12% 0;
