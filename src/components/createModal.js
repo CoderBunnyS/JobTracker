@@ -22,6 +22,7 @@ class CreateModal extends Component {
     this.onChangeJobTitle = this.onChangeJobTitle.bind(this);
     this.onChangeCompany = this.onChangeCompany.bind(this);
     this.onChangeAppliedDate = this.onChangeAppliedDate.bind(this);
+    this.onChangeLink = this.onChangeLink.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     //Setting state
@@ -30,6 +31,7 @@ class CreateModal extends Component {
         company:'',
         appliedDate:'',
         phase: '',
+        postingURL: ''
     }
 }
 
@@ -42,6 +44,9 @@ onChangeCompany(e) {
 onChangeAppliedDate(e){
     this.setState({appliedDate: e.target.value})
 }
+onChangeLink(e){
+    this.setState({postingURL: e.target.value})
+}
 onSubmit(e) {
     e.preventDefault()
 
@@ -53,6 +58,7 @@ onSubmit(e) {
           appliedDate: this.state.appliedDate,
           username: user.name,
           phase: this.props.phase,
+          postingURL: this.state.postingURL,
       };
       console.log(jobObject)
       axios.post(mongoURI, jobObject)
@@ -78,16 +84,20 @@ onSubmit(e) {
         <div className="close-modal" onClick={this.props.handleHide}><Icon iconName="ex" size="sm"/></div>
         <h3>Add Job</h3>
         <Form.Group controlId="Company">
-          {/* <Form.Label>Company Name</Form.Label> */}
+          <Form.Label>Company</Form.Label>
           <Form.Control placeholder="Company"type="text" value={this.state.company} onChange={this.onChangeCompany}/>
         </Form.Group>
         <Form.Group controlId="Title">
-          {/* <Form.Label>Title</Form.Label> */}
+          <Form.Label>Job Title</Form.Label>
           <Form.Control placeholder= "Job Title" type="text" value={this.state.title} onChange={this.onChangeJobTitle}/>
         </Form.Group>
         <Form.Group controlId="Applied">
-          {/* <Form.Label>Date Applied</Form.Label> */}
+          <Form.Label>Date Applied</Form.Label>
           <Form.Control placeholder= "Application Date" type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate}/>
+        </Form.Group>
+        <Form.Group controlId="postingURL">
+          <Form.Label>Posting Link</Form.Label>
+          <Form.Control type="text"  placeholder= "https://" value={this.state.postingURL} onChange={this.onChangeLink} />
         </Form.Group>
 
         <Button variant="dark" size="med" block="block" type="submit" id="createSubmit" className="">

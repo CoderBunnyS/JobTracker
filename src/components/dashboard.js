@@ -31,7 +31,7 @@ class Dashboard extends Component {
             isAuthenticated ?
               <>
 
-              <h1>Welcome, {user.name.split('@')[0]}</h1>
+              <h1>Welcome, <span style={{textTransform: 'capitalize'}}>{user.nickname}</span></h1>
               <h2>Track jobs today!</h2>
 
               </> :

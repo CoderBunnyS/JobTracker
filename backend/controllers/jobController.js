@@ -109,6 +109,7 @@ exports.job_create_post = (req, res, next) => {
       appliedDate: req.body.appliedDate,
       category: req.body.category,
       username: req.body.username,
+      postingURL: req.body.postingURL,
       phase: req.body.phase,
      });
   job.save((err, val) => {
@@ -300,6 +301,7 @@ exports.job_update_post = [
             phase: req.body.phase,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
+            postingURL: req.body.postingURL,
             category: (typeof req.body.category==='undefined') ? [] : req.body.category,
             _id:req.params.id // This is required, or a new ID will be assigned!
            });

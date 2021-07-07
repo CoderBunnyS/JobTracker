@@ -19,7 +19,6 @@ import { resetServerContext } from "react-beautiful-dnd"
 
 
 
-
 resetServerContext()
 
 
@@ -38,6 +37,7 @@ class JobList extends Component {
         this.closeEditModal = this.closeEditModal.bind(this);
         this.EditOneJobFromList = this.EditOneJobFromList.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
 
         this.state = {
             jobs: {'wishlist': [], 'applied': [], 'interview': [], 'offers': [], 'archive': [], 'all': []},
@@ -49,11 +49,15 @@ class JobList extends Component {
         };
     }
 
-    deleteItem(index){
-      const newJobs = [...this.state.jobs];
-      newJobs.splice(index, 1)
+    deleteItem(id){
+      const newAll = [...this.state.jobs.all].filter(x => x._id !== id);
+      const newColArray = [...this.state.jobs[this.state.activePhase]].filter(x => x._id !== id);
       this.setState({
-        jobs: newJobs
+        jobs: {
+          ...this.state.jobs,
+          all: newAll,
+          [this.state.activePhase]: newColArray,
+        }
       })
     }
     openCreateModal(phaseName){
@@ -265,6 +269,7 @@ class JobList extends Component {
               handleHide={this.closeEditModal}
               handleUpdate = {this.EditOneJobFromList}
               phase={this.state.activePhase}
+              handleDelete={this.deleteItem}
             />
           }
           <Row>
