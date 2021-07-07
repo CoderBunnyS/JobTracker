@@ -63,6 +63,12 @@ function App() {
                 <Link to={"/job-list"} className="nav-link">
                   Jobs
                 </Link>
+                <Link to={"/#"} className="nav-link">
+                  Contacts
+                </Link>
+                <Link to={"/#"} className="nav-link">
+                  Wellness
+                </Link>
                 <Link to={"/profile"} className="nav-link">
                   Profile
                 </Link>

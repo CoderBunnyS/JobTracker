@@ -29,22 +29,17 @@ export default class JobTableRow extends Component {
 
     render() {
         return (
-            <Draggable draggableId={this.props.obj._id} index={this.props.index}>
+            <Draggable draggableId={this.props.obj._id} index={this.props.index} isDragDisabled={!this.props.fullDetail}>
             {provided => (
-              <div className="job-card"
+              <div className={"job-card " + `${this.props.obj.phase.toLowerCase()}`}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               >
               {/* <Link>Create Job</Link> */}
-                <div onClick={this.props.edit} className="expand">
-                  <Icon
-                    iconName="expand"
-                    // extraClass="expand"
-                  />
-                </div>
+              {this.props.fullDetail && <div onClick={this.props.edit} className="expand"><Icon iconName="expand" /></div>}
 
-                <div className="status-dot"></div>
+                {<div className={"status-dot " + `${this.props.obj.phase}`}></div>}
                 <CompanyLogo companyName={this.props.obj.company.toLowerCase()}/>
                 <div>
                   <p className="company">{this.props.obj.company}</p>

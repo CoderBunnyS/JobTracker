@@ -254,7 +254,8 @@ class JobList extends Component {
 
           {/* <Link to="/create-job">Create Job</Link> */}
           <h1>Jobs</h1>
-          <h2>Keep track of your job applications</h2>
+          <h2>Keep track of your applications<span style={{float: 'right'}}>{this.state.date}</span></h2>
+
 
           { this.state.showCreateModal &&
             <CreateModal
@@ -275,11 +276,11 @@ class JobList extends Component {
           }
           <Row>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal} edit={this.openEditModal}/>
-            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Interview" jobs={this.state.jobs['interview']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Offers" jobs={this.state.jobs['offers']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Archive" jobs={this.state.jobs['archive']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal} edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Interview" jobs={this.state.jobs['interview']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Offers" jobs={this.state.jobs['offers']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Archive" jobs={this.state.jobs['archive']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
 
 
 

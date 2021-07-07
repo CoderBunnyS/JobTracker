@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import JobTableRow from './JobTableRow.js'
 import CreateJobButton from './createJobButton.js'
+import ViewMoreButton from './ViewMoreButton.js'
 
 
 
@@ -16,12 +17,15 @@ export default class BoardColumn extends React.Component {
   render() {
     return (
       <>
-      <Col >
+      <Col style={{maxWidth: '400px'}}>
         <h5>{this.props.phaseName || 'Phase'}</h5>
         <div className={"board-col " + this.props.phaseName.toLowerCase()}>
         {/* <CreateJobButton /> */}
 
-        <CreateJobButton phaseName={this.props.phaseName} openCreateModal={this.props.openCreateModal} />
+        { this.props.fullDetail ?
+          <CreateJobButton phaseName={this.props.phaseName} openCreateModal={this.props.openCreateModal} />
+          : <ViewMoreButton link="job-list" text="View Jobs"/>
+        }
         <Droppable droppableId={this.props.phaseName} >
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} classname="no-pad" style={{minHeight: '60vh'}}>
@@ -31,6 +35,7 @@ export default class BoardColumn extends React.Component {
                   key={job._id}
                   index={index}
                   edit={() => this.props.edit(job._id, this.props.phaseName)}
+                  fullDetail={this.props.fullDetail}
 
                   // JL={this}
                   // edit = {() => this.openEditModal(i)}

@@ -31,6 +31,11 @@ body h3, body h2 {
 .navbar-brand a {
   color: #ffffff;
 }
+.nav-link {
+  color: white !important;
+  font-weight: bold;
+  font-size: 16px;
+}
 
 input, .form-label{
   color: #353535 !important;
