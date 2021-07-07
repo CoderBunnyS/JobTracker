@@ -11,7 +11,7 @@ import "../styles/landingPage.css"
 
 function LandingPage() {
     return <div className="landingPage">
-    <header className="App-header">
+    {/* <header className="App-header">
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand>
@@ -23,32 +23,32 @@ function LandingPage() {
               <LoginButton />
           </Container>
         </Navbar>
-      </header>
+      </header> */}
     <div className="linkRow">
-    <Navbar>
+    {/* <Navbar>
   <Navbar.Text href="#why">Why Artemis?</Navbar.Text>
     <Navbar.Text href="#Dashboard">Dashboard Features</Navbar.Text>
     <Navbar.Text href="#About">About Us</Navbar.Text>
-</Navbar>
+</Navbar> */}
       </div>
       <div className="whySection">
-          <div className="searchSection">
-          <div className="searchPara">
+          <div className="LPSection">
+          <div className="LPPara">
           <h1>Your job search just got a lot more organized.</h1>
           <p>Artemis’ job search tracking tool helps you track your job search stages, your networking contacts, and your progress while providing you with the tips and encouragement to meet your goals.</p>
-          <LoginButton />
+          <LoginButton className="landingSignIn"/>
 
           </div>
           <div className="searchImage">
-            <img src="/images/landingPage.png" alt="Artemis Screenshot" className="image"></img>
+            <img src="/images/landingPage.png" alt="Artemis Screenshot" className="LPimage"></img>
           </div>
 
           </div>
-          <div className="trackingSection">
+          <div className="LPSection">
               <div className="searchImage">
-              <img src="" alt="woman sitting up" className="image"></img>
+              <img src="/images/situp.png" alt="woman sitting up" className="LPimage"></img>
               </div>
-              <div className="trackingPara">
+              <div className="LPPara">
                   <h1>Build resilience with well-being tracking and tips.</h1>
                   <p>We know the journey to accomplishing your goals is tough. We are here to remind you to take care of your well-being so that you can put your best foot forward in your job search.</p>
               </div>
@@ -56,12 +56,12 @@ function LandingPage() {
       </div>
     <div className="features">
         <h2 id="featuresHeading">Features</h2><br></br>
-        <div className="row">
+        <div className="featureRow">
             <img src="" alt="screenshot"></img>
             <img src="" alt="screenshot"></img>
             <img src="" alt="screenshot"></img>
         </div>
-        <div className="row">
+        <div className="featureRow">
         <img src="" alt="screenshot"></img>
             <img src="" alt="screenshot"></img>
             <img src="" alt="screenshot"></img>
