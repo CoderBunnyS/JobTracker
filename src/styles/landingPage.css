@@ -43,20 +43,12 @@
       margin-left: 8rem;
       margin-right: 5rem;
   }
-  /* .trackingSection {
-      display: flex;
-  } */
+
   .trackingImg {
       width: 40%;
       display: flex;
   }
-  /* .LPPara {
-    width: 40%;
-  } */
-  .features {
-      /* display: flex; */
-      /* margin: 10rem 0 0 0; */
-  }
+
   .LPHeading {
     text-align: center;
     font-weight: 700;
