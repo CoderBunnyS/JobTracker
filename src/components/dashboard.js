@@ -10,6 +10,7 @@ import BoardColumn from './BoardColumn.js';
 import {DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Inspiration from './inspiration'
 import Goals from './Goals'
+import Contacts from './contacts'
 
 
 
@@ -45,7 +46,7 @@ class Dashboard extends Component {
       .then(res => {
         console.log(res.data)
           this.setState({
-            jobs: res.data
+            jobs: res.data.splice(0, 7)
           })
           console.log(this.state.jobs)
       })
@@ -78,8 +79,9 @@ class Dashboard extends Component {
               <h2>Let’s track your journey today<span style={{float: 'right'}}>{this.state.date}</span></h2>
               <Row>
               <DragDropContext onDragEnd={this.onDragEnd}>
-                <BoardColumn phaseName="Job Applications" jobs={this.state.jobs} openCreateModal={this.openCreateModal} edit={this.openEditModal}/>
+                <BoardColumn phaseName="Job Applications" jobs={this.state.jobs} openCreateModal={this.openCreateModal} edit={this.openEditModal} iconName='briefcase'/>
               </DragDropContext>
+              <Contacts/>
               <Inspiration/>
               <Goals />
             </Row>

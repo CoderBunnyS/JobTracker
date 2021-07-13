@@ -52,7 +52,6 @@ class JobList extends Component {
     deleteItem(id){
       const newAll = [...this.state.jobs.all].filter(x => x._id !== id);
       const newColArray = [...this.state.jobs[this.state.activePhase]].filter(x => x._id !== id);
-      newColArray = newColArray.filter(x => x._id !== id);
       this.setState({
         jobs: {
           ...this.state.jobs,

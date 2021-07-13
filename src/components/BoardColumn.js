@@ -5,7 +5,8 @@ import Col from 'react-bootstrap/Col'
 import JobTableRow from './JobTableRow.js'
 import CreateJobButton from './createJobButton.js'
 import ViewMoreButton from './ViewMoreButton.js'
-
+import Icon from './icon.component'
+import IconColumnHeader from './IconColumnHeader'
 
 
 export default class BoardColumn extends React.Component {
@@ -18,7 +19,8 @@ export default class BoardColumn extends React.Component {
     return (
       <>
       <Col style={{maxWidth: '400px'}}>
-        <h5>{this.props.phaseName || 'Phase'}</h5>
+      <IconColumnHeader text={this.props.phaseName} icon={this.props.iconName} />
+
         <div className={"board-col " + this.props.phaseName.toLowerCase()}>
         {/* <CreateJobButton /> */}
 

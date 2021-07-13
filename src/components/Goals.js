@@ -1,13 +1,16 @@
 import Col from 'react-bootstrap/Col'
 import ViewMoreButton from './ViewMoreButton.js'
+import IconColumnHeader from './IconColumnHeader'
+
 
 
 export default function Goals() {
   return (
     <Col xs={3}>
-      <h5>Weekly Goals</h5>
+      <IconColumnHeader text="Weekly Goals" icon="calendar" />
+
       <div className={"board-col"} style={{background: '', paddingTop: ''}}>
-        <ViewMoreButton link='#' text='Manage Goals'/>
+        <ViewMoreButton link='#' text='Update Goals'/>
         <Marker label='Exercise' percent='30%'/>
         <Marker label='Networking Events' percent='60%'/>
         <Marker label='Applications' percent='50%'/>
