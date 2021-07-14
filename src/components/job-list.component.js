@@ -19,7 +19,6 @@ import { resetServerContext } from "react-beautiful-dnd"
 
 
 
-
 resetServerContext()
 
 
@@ -38,6 +37,7 @@ class JobList extends Component {
         this.closeEditModal = this.closeEditModal.bind(this);
         this.EditOneJobFromList = this.EditOneJobFromList.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
 
         this.state = {
             jobs: {'wishlist': [], 'applied': [], 'interview': [], 'offers': [], 'archive': [], 'all': []},
@@ -49,11 +49,15 @@ class JobList extends Component {
         };
     }
 
-    deleteItem(index){
-      const newJobs = [...this.state.jobs];
-      newJobs.splice(index, 1)
+    deleteItem(id){
+      const newAll = [...this.state.jobs.all].filter(x => x._id !== id);
+      const newColArray = [...this.state.jobs[this.state.activePhase]].filter(x => x._id !== id);
       this.setState({
-        jobs: newJobs
+        jobs: {
+          ...this.state.jobs,
+          all: newAll,
+          [this.state.activePhase]: newColArray,
+        }
       })
     }
     openCreateModal(phaseName){
@@ -150,8 +154,8 @@ class JobList extends Component {
       } else {
         newDestCol.splice(destination.index, 0, movedItem);
         console.log(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`);
-        // axios.post(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`, {phase: destination.droppableId})
-        //   .then(res => console.log(res))
+        axios.post(process.env.REACT_APP_BACKEND_URL + `jobs/jobs/${draggableId}/phase`, {phase: destination.droppableId})
+          .then(res => console.log(res))
       }
 
 
@@ -249,7 +253,8 @@ class JobList extends Component {
 
           {/* <Link to="/create-job">Create Job</Link> */}
           <h1>Jobs</h1>
-          <h2>Keep track of your job applications</h2>
+          <h2>Keep track of your applications<span style={{float: 'right'}}>{this.state.date}</span></h2>
+
 
           { this.state.showCreateModal &&
             <CreateModal
@@ -265,15 +270,16 @@ class JobList extends Component {
               handleHide={this.closeEditModal}
               handleUpdate = {this.EditOneJobFromList}
               phase={this.state.activePhase}
+              handleDelete={this.deleteItem}
             />
           }
           <Row>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal} edit={this.openEditModal}/>
-            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Interview" jobs={this.state.jobs['interview']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Offers" jobs={this.state.jobs['offers']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
-            <BoardColumn phaseName="Archive" jobs={this.state.jobs['archive']} openCreateModal={this.openCreateModal}  edit={this.openEditModal}/>
+            <BoardColumn phaseName="Wishlist" jobs={this.state.jobs['wishlist']} openCreateModal={this.openCreateModal} edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Applied" jobs={this.state.jobs['applied']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Interview" jobs={this.state.jobs['interview']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Offers" jobs={this.state.jobs['offers']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
+            <BoardColumn phaseName="Archive" jobs={this.state.jobs['archive']} openCreateModal={this.openCreateModal}  edit={this.openEditModal} fullDetail={true}/>
 
 
 

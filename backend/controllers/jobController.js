@@ -109,6 +109,7 @@ exports.job_create_post = (req, res, next) => {
       appliedDate: req.body.appliedDate,
       category: req.body.category,
       username: req.body.username,
+      postingURL: req.body.postingURL,
       phase: req.body.phase,
      });
   job.save((err, val) => {
@@ -256,12 +257,13 @@ exports.job_update_get = function(req, res, next) {
 };
 
 exports.job_switch_phase = (req, res) => {
+  console.log(req.body)
   const update = {
     phase: req.body.phase
   }
   Job.findByIdAndUpdate(req.params.id, update, (err, obj) => {
     if (err) { return next(err) }
-    res.status(200).json({msg: `phase set to ${res.body.phase}`})
+    res.status(200).json({msg: `phase set to ${req.body.phase}`})
   })
 }
 
@@ -300,6 +302,7 @@ exports.job_update_post = [
             phase: req.body.phase,
             summary: req.body.summary,
             appliedDate: req.body.appliedDate,
+            postingURL: req.body.postingURL,
             category: (typeof req.body.category==='undefined') ? [] : req.body.category,
             _id:req.params.id // This is required, or a new ID will be assigned!
            });

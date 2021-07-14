@@ -26,13 +26,18 @@ export default class EditJob extends Component {
     this.onChangeJobTitle = this.onChangeJobTitle.bind(this);
     this.onChangeCompany = this.onChangeCompany.bind(this);
     this.onChangeAppliedDate = this.onChangeAppliedDate.bind(this);
+    this.onChangeLink = this.onChangeLink.bind(this);
+
     this.onSubmit = this.onSubmit.bind(this);
+    this.delete = this.delete.bind(this);
+
 
     // State
     this.state = {
       title: '',
       company: '',
-      appliedDate: ''
+      appliedDate: '',
+      postingURL: '',
     }
   }
 
@@ -43,7 +48,8 @@ export default class EditJob extends Component {
         this.setState({
           title: this.props.Data.title,
           company: this.props.Data.company,
-          appliedDate: this.props.Data.appliedDate
+          appliedDate: this.props.Data.appliedDate,
+          postingURL: this.props.Data.postingURL,
         })
     //     //window.location.reload(false);
     //     // this.componentDidMount()
@@ -65,6 +71,24 @@ export default class EditJob extends Component {
     this.setState({ appliedDate: e.target.value })
   }
 
+  onChangeLink(e) {
+    this.setState({ postingURL: e.target.value })
+  }
+
+  delete() {
+    const url = process.env.REACT_APP_BACKEND_URL + `jobs/job/${this.props.Data._id}/delete`
+
+    axios.post(url)
+    .then((res) => {
+        console.log(res);
+        console.log('Job successfully deleted!')
+        this.props.handleDelete(this.props.Data._id);
+        this.props.handleHide();
+    }).catch((error) => {
+        console.log(error)
+    })
+  }
+
   onSubmit(e) {
     e.preventDefault()
 
@@ -74,6 +98,7 @@ export default class EditJob extends Component {
       company: this.state.company,
       appliedDate: this.state.appliedDate,
       phase: this.props.phase,
+      postingURL: this.state.postingURL
     };
 
     axios.post(`${mongoURI}/${this.props.Data._id}/update`, jobObject)
@@ -102,7 +127,7 @@ export default class EditJob extends Component {
       <Form onSubmit={this.onSubmit}>
       <div className="close-modal" onClick={this.props.handleHide}><Icon iconName="ex" size="sm"/></div>
 
-        <JobHeader company={this.state.company} title={this.state.title}/>
+        <JobHeader company={this.state.company} title={this.state.title} href={this.state.postingURL}/>
         <Form.Group controlId="Company">
           <Form.Label>Company</Form.Label>
           <Form.Control type="text" value={this.state.company} onChange={this.onChangeCompany} />
@@ -119,12 +144,19 @@ export default class EditJob extends Component {
           <Form.Control type="date" value={this.state.appliedDate} onChange={this.onChangeAppliedDate} />
         </Form.Group>
 
-        <Button variant="primary" size="med" block="block" type="submit" className="">
+        <Form.Group controlId="postingURL">
+          <Form.Label>Posting Link</Form.Label>
+          <Form.Control type="text" value={this.state.postingURL} onChange={this.onChangeLink} />
+        </Form.Group>
+        <div className="button-zone">
+        <Button variant="primary" size="sm" block="block" type="submit" className="">
           Update
         </Button>
-        <Button variant="outline-danger" size="med" block="block" type="" className="">
+        <Button variant="outline-danger" size="sm" block="block" type="" className="" onClick = {this.delete}>
           Delete
         </Button>
+        </div>
+
       </Form>
     </div>
     </Modal>);
